@@ -1,1304 +1,1813 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Đề Cương Ôn Tập Giữa Kì 1 - Lịch Sử (Bài 2, 3, 4, 5)</title>
-<style>
-  :root {
-    --bg: #0f172a;
-    --paper: #1e293b;
-    --text: #f8fafc;
-    --muted: #94a3b8;
-    --border: #334155;
-    --green: #22c55e;
-    --green-bg: rgba(34, 197, 94, 0.22);
-    --red: #ef4444;
-    --red-bg: rgba(239, 68, 68, 0.2);
-    --gold: #f59e0b;
-    --blue: #38bdf8;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.55;
-    padding-bottom: 70px;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bí Kíp Chống Liệt Đọc Hiểu Ngữ Văn - Ôn Gấp Trong Đêm</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Be Vietnam Pro cho tiếng Việt cực nét -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Be Vietnam Pro"', 'sans-serif'],
+                    },
+                    colors: {
+                        night: {
+                            950: '#090D16',
+                            900: '#0F172A',
+                            800: '#1E293B',
+                            700: '#334155',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
-  /* Thanh điều khiển cố định trên cùng */
-  .topbar {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(15, 23, 42, 0.96);
-    backdrop-filter: blur(8px);
-    border-bottom: 2px solid var(--green);
-    padding: 10px 14px;
-  }
-  .topbar-inner {
-    max-width: 920px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .doc-title {
-    font-weight: 900;
-    font-size: 1.05rem;
-    color: #fff;
-    letter-spacing: 0.3px;
-  }
-  .doc-title span { color: var(--green); }
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #090D16;
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
 
-  .controls {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .btn {
-    border: 1px solid var(--border);
-    background: var(--paper);
-    color: var(--text);
-    padding: 7px 12px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: 0.2s;
-  }
-  .btn:hover { border-color: var(--green); }
-  .btn.active-green {
-    background: var(--green);
-    color: #052e16;
-    border-color: var(--green);
-    box-shadow: 0 0 12px rgba(34, 197, 94, 0.45);
-  }
-  .btn.active-gold {
-    background: var(--gold);
-    color: #0f172a;
-    border-color: var(--gold);
-  }
+        /* Hiệu ứng lật thẻ 3D mượt mà */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
 
-  .container {
-    max-width: 920px;
-    margin: 18px auto;
-    padding: 0 14px;
-  }
+        /* Tô sáng từ khóa ăn tiền */
+        .kw-highlight {
+            background: rgba(250, 204, 21, 0.25);
+            color: #FDE047;
+            padding: 1px 6px;
+            border-radius: 6px;
+            font-weight: 700;
+            border: 1px solid rgba(250, 204, 21, 0.5);
+            transition: all 0.2s ease;
+        }
+        .kw-off .kw-highlight {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            border: none;
+            font-weight: inherit;
+        }
 
-  /* Tiêu đề Đề cương chuẩn trường học */
-  .exam-header {
-    background: var(--paper);
-    border: 2px solid var(--border);
-    border-radius: 12px;
-    padding: 18px;
-    text-align: center;
-    margin-bottom: 18px;
-  }
-  .exam-header h1 {
-    font-size: 1.35rem;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-  .exam-header p {
-    font-size: 0.9rem;
-    color: var(--muted);
-  }
-
-  /* Dòng cảnh báo đầu trang */
-  .warning-banner {
-    background: rgba(245, 158, 11, 0.15);
-    border: 2px solid var(--gold);
-    color: #fef08a;
-    padding: 12px 16px;
-    border-radius: 10px;
-    margin-bottom: 14px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
-  }
-  .warning-banner span.warn-icon {
-    font-size: 1.3rem;
-    flex-shrink: 0;
-  }
-
-  /* Thanh lọc nhanh theo bài */
-  .filter-bar {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-bottom: 18px;
-  }
-  .filter-chip {
-    background: var(--paper);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-size: 0.84rem;
-    font-weight: 700;
-    cursor: pointer;
-  }
-  .filter-chip.active {
-    background: var(--blue);
-    color: #0f172a;
-    border-color: var(--blue);
-  }
-
-  /* Tiêu đề phần I, II La Mã */
-  .roman-title {
-    background: linear-gradient(90deg, #16a34a 0%, #1e293b 100%);
-    color: #fff;
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-size: 1.15rem;
-    font-weight: 900;
-    margin: 24px 0 14px;
-    letter-spacing: 0.5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  /* Khối câu hỏi Trắc nghiệm */
-  .q-item {
-    background: var(--paper);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-    margin-bottom: 12px;
-  }
-  .q-question {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 10px;
-  }
-  .q-question .q-label {
-    color: var(--gold);
-    margin-right: 4px;
-  }
-  .q-options {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-  }
-  .opt-btn {
-    width: 100%;
-    text-align: left;
-    background: #0f172a;
-    border: 1.5px solid var(--border);
-    color: #e2e8f0;
-    padding: 9px 14px;
-    border-radius: 8px;
-    font-size: 0.94rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: all 0.2s ease;
-    position: relative;
-    overflow: hidden;
-  }
-  .opt-btn:hover {
-    border-color: #64748b;
-    transform: translateX(3px);
-  }
-  .opt-left {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-  }
-  .opt-letter {
-    font-weight: 800;
-    color: var(--gold);
-    min-width: 22px;
-  }
-
-  /* HIỆU ỨNG ĐỘNG KHI CHỌN TRÚNG ĐÁP ÁN MÀU XANH */
-  @keyframes greenPop {
-    0% { transform: scale(0.98); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.8); }
-    50% { transform: scale(1.015); box-shadow: 0 0 18px 4px rgba(34, 197, 94, 0.55); }
-    100% { transform: scale(1); box-shadow: 0 0 8px 0 rgba(34, 197, 94, 0.25); }
-  }
-  @keyframes checkBounce {
-    0% { transform: scale(0) rotate(-30deg); opacity: 0; }
-    70% { transform: scale(1.3) rotate(10deg); opacity: 1; }
-    100% { transform: scale(1) rotate(0deg); opacity: 1; }
-  }
-  @keyframes wrongShake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-6px); }
-    75% { transform: translateX(6px); }
-  }
-
-  .opt-btn.is-correct {
-    background: var(--green-bg) !important;
-    border: 2px solid var(--green) !important;
-    color: #bbf7d0 !important;
-    font-weight: 700;
-    animation: greenPop 0.4s ease-out forwards;
-  }
-  .opt-btn.is-correct .opt-letter {
-    color: var(--green) !important;
-  }
-  .check-icon {
-    display: none;
-    background: var(--green);
-    color: #052e16;
-    font-weight: 900;
-    font-size: 0.78rem;
-    padding: 2px 8px;
-    border-radius: 99px;
-    animation: checkBounce 0.35s ease-out forwards;
-    white-space: nowrap;
-    margin-left: 8px;
-  }
-  .opt-btn.is-correct .check-icon {
-    display: inline-block;
-  }
-
-  .opt-btn.is-wrong {
-    background: var(--red-bg) !important;
-    border: 2px solid var(--red) !important;
-    color: #fecaca !important;
-    animation: wrongShake 0.3s ease;
-  }
-
-  /* PHẦN II: TỰ LUẬN + HOẠT ẢNH + MẸO HỌC THUỘC */
-  .essay-card {
-    background: var(--paper);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 18px;
-    margin-bottom: 16px;
-  }
-  .essay-q {
-    font-size: 1.08rem;
-    font-weight: 800;
-    color: var(--gold);
-    margin-bottom: 12px;
-    border-bottom: 1px dashed var(--border);
-    padding-bottom: 8px;
-  }
-  .essay-body {
-    display: grid;
-    grid-template-columns: 1fr 220px;
-    gap: 16px;
-    align-items: center;
-  }
-  @media (max-width: 700px) {
-    .essay-body { grid-template-columns: 1fr; }
-  }
-  .essay-ans ul {
-    padding-left: 18px;
-    color: #e2e8f0;
-    font-size: 0.94rem;
-  }
-  .essay-ans li { margin-bottom: 6px; }
-  .hl { color: #fde047; font-weight: 700; }
-  .hl-green { color: #4ade80; font-weight: 700; }
-
-  /* Khung hoạt ảnh minh họa trong phần Tự luận */
-  .essay-anim-box {
-    background: #0f172a;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px;
-    text-align: center;
-  }
-  .anim-svg {
-    width: 72px;
-    height: 72px;
-    margin: 0 auto 6px;
-    display: block;
-    animation: floatAnim 2.6s ease-in-out infinite;
-  }
-  @keyframes floatAnim {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-6px) scale(1.06); }
-  }
-  .anim-caption {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--blue);
-  }
-
-  /* Hộp mẹo học thuộc ở Tự luận */
-  .memory-box {
-    margin-top: 12px;
-    background: rgba(34, 197, 94, 0.12);
-    border-left: 4px solid var(--green);
-    border-radius: 6px;
-    padding: 10px 14px;
-    font-size: 0.9rem;
-    color: #dcfce7;
-  }
-  .memory-box strong { color: var(--green); }
-</style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F172A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F59E0B;
+        }
+    </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col selection:bg-amber-400 selection:text-slate-950">
 
-<div class="topbar">
-  <div class="topbar-inner">
-    <div class="doc-title">📄 ĐỀ CƯƠNG ÔN TẬP GIỮA KÌ 1 <span>• LỊCH SỬ</span></div>
-    <div class="controls">
-      <button id="btnAutoGreen" class="btn" onclick="toggleStudyMode(true)">👀 Hiện sẵn đáp án Xanh</button>
-      <button id="btnClickMode" class="btn active-green" onclick="toggleStudyMode(false)">👆 Tự bấm chọn (Bấm vào hiện màu Xanh)</button>
-      <button class="btn" onclick="resetChoices()">🔄 Làm lại</button>
+    <!-- Thông báo nổi (Thay thế hoàn toàn alert) -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- HEADER & THANH ĐIỀU HƯỚNG DÍNH (STICKY NAV) -->
+    <header class="sticky top-0 z-40 backdrop-blur-xl bg-night-950/90 border-b border-slate-800 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+                <!-- Logo & Tên Web -->
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-400 via-orange-500 to-rose-600 flex items-center justify-center shadow-lg shadow-amber-500/20 font-black text-slate-950 text-xl shrink-0">
+                            9+
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="px-2 py-0.5 text-[11px] font-extrabold uppercase tracking-wider bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded-full animate-pulse">
+                                    Cứu nguy 2h sáng
+                                </span>
+                                <span class="text-xs text-slate-400 hidden sm:inline">Không lan man • Đọc là khoanh được</span>
+                            </div>
+                            <h1 class="text-base sm:text-xl font-black tracking-tight text-white">
+                                BÍ KÍP CHỐNG LIỆT <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">ĐỌC HIỂU NGỮ VĂN</span>
+                            </h1>
+                        </div>
+                    </div>
+
+                    <!-- Nút chế độ xem nhanh trên mobile -->
+                    <button onclick="openCheatModal()" class="lg:hidden px-3 py-1.5 rounded-xl bg-amber-400/10 border border-amber-400/40 text-amber-300 text-xs font-bold hover:bg-amber-400/20 transition">
+                        ⚡ Phao Tóm Tắt 30s
+                    </button>
+                </div>
+
+                <!-- Các Tab Chuyển Phần Nhanh -->
+                <nav class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 no-scrollbar" aria-label="Điều hướng chính">
+                    <button onclick="switchTab('all')" id="tab-all" class="nav-btn active-tab shrink-0 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-amber-400 text-slate-950 shadow-md shadow-amber-400/20">
+                        🔥 Xem Tất Cả
+                    </button>
+                    <button onclick="switchTab('part1')" id="tab-part1" class="nav-btn shrink-0 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-slate-800/80 text-slate-300 hover:bg-slate-700">
+                        1. Dấu Hiệu Câu 1
+                    </button>
+                    <button onclick="switchTab('part2')" id="tab-part2" class="nav-btn shrink-0 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-slate-800/80 text-slate-300 hover:bg-slate-700">
+                        2. 9 Biện Pháp Tu Từ
+                    </button>
+                    <button onclick="switchTab('part3')" id="tab-part3" class="nav-btn shrink-0 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-slate-800/80 text-slate-300 hover:bg-slate-700">
+                        3. Công Thức & Máy Ghép Văn
+                    </button>
+                    <button onclick="switchTab('part4')" id="tab-part4" class="nav-btn shrink-0 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-slate-800/80 text-slate-300 hover:bg-slate-700">
+                        4. Đề Fake & Bắt Bệnh
+                    </button>
+                    <button onclick="openCheatModal()" class="hidden lg:inline-flex shrink-0 px-3 py-2 rounded-xl bg-rose-500/15 border border-rose-500/40 text-rose-300 text-xs font-bold hover:bg-rose-500/25 transition">
+                        ⚡ Phao 30s Trước Giờ G
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- BANNER TÂM SỰ THẰNG BẠN THÂN -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-2 w-full">
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 via-indigo-950/80 to-slate-900 border border-indigo-500/30 p-4 sm:p-6 shadow-xl">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative z-10">
+                <div class="space-y-1.5">
+                    <div class="inline-flex items-center gap-2 text-amber-400 font-extrabold text-xs sm:text-sm uppercase tracking-wide">
+                        <span>📢 Lời dặn từ thằng bạn thân:</span>
+                    </div>
+                    <p class="text-sm sm:text-base text-slate-200 leading-relaxed">
+                        "Nghe tao nói này: Phần Đọc Hiểu chiếm <span class="text-amber-400 font-extrabold underline decoration-wavy">3.0 đến 4.0 điểm</span> nhưng dễ ăn hơn câu Nghị luận văn học gấp 10 lần! Mày không cần văn hay chữ tốt, chỉ cần <span class="text-emerald-400 font-bold">bắt đúng từ khóa + ráp đúng công thức 4 bước</span> dưới đây là auto lụm điểm qua liệt dư sức!"
+                    </p>
+                </div>
+                <div class="flex flex-wrap sm:flex-nowrap items-center gap-2 shrink-0 w-full md:w-auto">
+                    <a href="#sec-part3" onclick="switchTab('all')" class="flex-1 md:flex-initial text-center px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs sm:text-sm transition shadow-lg shadow-emerald-500/20">
+                        🛠️ Nhảy Tới Máy Ghép Văn
+                    </a>
+                    <a href="#sec-part4" onclick="switchTab('all')" class="flex-1 md:flex-initial text-center px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs sm:text-sm transition shadow-lg shadow-amber-400/20">
+                        🎯 Làm Thử Đề Fake Luôn
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-12 flex-1 w-full">
+
+        <!-- =========================================================================
+             PHẦN 1: DẤU HIỆU NHẬN BIẾT NHANH (CÂU 1 ĐỌC HIỂU)
+             ========================================================================= -->
+        <section id="sec-part1" class="app-section space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-800 pb-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs font-extrabold mb-2">
+                        PHẦN 1 • CÂU 1 ĐỌC HIỂU (0.5 - 0.75 ĐIỂM CHO KHÔNG)
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-black text-white">
+                        Dấu Hiệu Nhận Biết Nhanh Trong 3 Giây
+                    </h2>
+                    <p class="text-slate-400 text-sm mt-1">
+                        Vào phòng thi đọc Câu 1 là phải khoanh hoặc viết xong trong 10 giây. Bấm vào từng thẻ để lật xem <span class="text-amber-300 font-semibold">Mẹo Thực Chiến</span>!
+                    </p>
+                </div>
+                <button onclick="flipAllPart1Cards()" class="self-start sm:self-auto px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-amber-300 text-xs sm:text-sm font-bold transition flex items-center gap-2">
+                    <span>🔄 Lật Tất Cả 3 Thẻ</span>
+                </button>
+            </div>
+
+            <!-- 3 THẺ LẬT TRỰC QUAN -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- THẺ 1: THỂ THƠ -->
+                <div class="flip-card h-[400px] sm:h-[380px] perspective-1000 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <!-- Mặt trước: Kiến thức chuẩn -->
+                        <div class="flip-card-front bg-slate-900 border-2 border-amber-500/40 p-5 sm:p-6 flex flex-col justify-between shadow-xl hover:border-amber-400 transition">
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-4">
+                                    <span class="px-3 py-1 rounded-lg bg-amber-400/20 text-amber-300 font-black text-xs uppercase">
+                                        Thẻ 01 • Hay hỏi nhất
+                                    </span>
+                                    <span class="text-xs text-slate-400 font-semibold flex items-center gap-1">
+                                        👆 Bấm để lật mẹo
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-black text-white mb-1 flex items-center gap-2">
+                                    <span>📏 1. Thể thơ</span>
+                                </h3>
+                                <p class="text-xs text-amber-300 font-bold mb-4">
+                                    (Mẹo đếm số chữ trên 1 dòng)
+                                </p>
+                                <ul class="space-y-3 text-sm text-slate-200">
+                                    <li class="p-2.5 rounded-xl bg-slate-800/90 border border-slate-700/80">
+                                        <span class="font-extrabold text-amber-400">• Lục bát:</span> Dòng <span class="underline decoration-amber-400 font-bold">6 chữ</span> xen kẽ dòng <span class="underline decoration-amber-400 font-bold">8 chữ</span>.
+                                    </li>
+                                    <li class="p-2.5 rounded-xl bg-slate-800/90 border border-slate-700/80">
+                                        <span class="font-extrabold text-emerald-400">• Bốn chữ, năm chữ, bảy chữ, tám chữ:</span> Đếm từ đầu đến cuối bài dòng nào cũng bằng đó chữ thì ghi đúng tên số chữ đó ra.
+                                    </li>
+                                    <li class="p-2.5 rounded-xl bg-slate-800/90 border border-slate-700/80">
+                                        <span class="font-extrabold text-sky-400">• Tự do:</span> Dòng dài dòng ngắn lộn xộn (<span class="font-bold text-white">4, 7, 9 chữ...</span>) không theo quy tắc.
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                                <span>Độ dễ: ⭐⭐⭐⭐⭐ (Cho điểm)</span>
+                                <span class="text-amber-400 font-bold">Xem bẫy phòng thi ➔</span>
+                            </div>
+                        </div>
+
+                        <!-- Mặt sau: Mẹo láo ngơ thực chiến -->
+                        <div class="flip-card-back bg-gradient-to-br from-amber-950/90 via-slate-900 to-slate-900 border-2 border-amber-400 p-5 sm:p-6 flex flex-col justify-between shadow-xl">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="px-3 py-1 rounded-lg bg-amber-400 text-slate-950 font-black text-xs uppercase">
+                                        💡 Mẹo Bắt Sống Thể Thơ
+                                    </span>
+                                    <span class="text-xs text-amber-300 font-semibold">👆 Bấm quay lại</span>
+                                </div>
+                                <h4 class="text-lg font-black text-white">Đừng nhìn bằng mắt, lấy ngón tay chỉ vô đếm!</h4>
+                                <div class="space-y-2.5 text-sm text-slate-200 leading-relaxed">
+                                    <p class="p-3 rounded-xl bg-slate-950/70 border border-amber-500/30">
+                                        🔥 <strong class="text-amber-300">Kinh nghiệm xương máu:</strong> Đếm ít nhất <strong class="text-white">4 dòng đầu tiên</strong>. Nhiều đứa mới đếm dòng 1 thấy 6 chữ, dòng 2 thấy 8 chữ đã vội phán Lục bát, ai dè dòng 3 nó vọt lên 11 chữ (Thơ Tự do)!
+                                    </p>
+                                    <p class="p-3 rounded-xl bg-slate-950/70 border border-rose-500/30">
+                                        ⚠️ <strong class="text-rose-400">Cấm tuyệt đối:</strong> Không có thể thơ "6 chữ 8 chữ" nha mày! 6-8 phải ghi rõ là <strong class="text-emerald-400">Thể thơ Lục bát</strong>. Còn thấy câu ngắn câu dài bậc thang thì chốt ngay <strong class="text-sky-400">Thể thơ Tự do</strong>!
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="text-xs text-amber-300 font-bold text-center bg-slate-950/60 py-2 rounded-lg">
+                                👇 Ở ngay bên dưới có Máy Đếm Chữ Tự Động cho mày test!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- THẺ 2: NGÔI KỂ -->
+                <div class="flip-card h-[400px] sm:h-[380px] perspective-1000 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <!-- Mặt trước -->
+                        <div class="flip-card-front bg-slate-900 border-2 border-emerald-500/40 p-5 sm:p-6 flex flex-col justify-between shadow-xl hover:border-emerald-400 transition">
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-4">
+                                    <span class="px-3 py-1 rounded-lg bg-emerald-400/20 text-emerald-300 font-black text-xs uppercase">
+                                        Thẻ 02 • Nếu đề ra Truyện
+                                    </span>
+                                    <span class="text-xs text-slate-400 font-semibold flex items-center gap-1">
+                                        👆 Bấm để lật mẹo
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-black text-white mb-1 flex items-center gap-2">
+                                    <span>🗣️ 2. Ngôi kể</span>
+                                </h3>
+                                <p class="text-xs text-emerald-300 font-bold mb-4">
+                                    (Nếu đề ra truyện)
+                                </p>
+                                <ul class="space-y-3.5 text-sm text-slate-200">
+                                    <li class="p-3 rounded-xl bg-slate-800/90 border border-slate-700/80">
+                                        <span class="font-extrabold text-emerald-400 block mb-1">• Ngôi thứ nhất:</span>
+                                        Nhân vật tự xưng <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">"tôi", "mình", "chúng tôi", "tao"...</span> (Có từ xưng hô trực tiếp).
+                                    </li>
+                                    <li class="p-3 rounded-xl bg-slate-800/90 border border-slate-700/80">
+                                        <span class="font-extrabold text-amber-400 block mb-1">• Ngôi thứ ba:</span>
+                                        Người kể giấu mặt, gọi thẳng tên nhân vật (<span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">ông Hai, Lão Hạc, Vũ Nương, nó, hắn...</span>).
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                                <span>Chỉ có Ngôi 1 hoặc Ngôi 3!</span>
+                                <span class="text-emerald-400 font-bold">Xem mẹo tránh bẫy ➔</span>
+                            </div>
+                        </div>
+
+                        <!-- Mặt sau -->
+                        <div class="flip-card-back bg-gradient-to-br from-emerald-950/90 via-slate-900 to-slate-900 border-2 border-emerald-400 p-5 sm:p-6 flex flex-col justify-between shadow-xl">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="px-3 py-1 rounded-lg bg-emerald-400 text-slate-950 font-black text-xs uppercase">
+                                        💡 Mẹo Bắt Sống Ngôi Kể
+                                    </span>
+                                    <span class="text-xs text-emerald-300 font-semibold">👆 Bấm quay lại</span>
+                                </div>
+                                <h4 class="text-lg font-black text-white">Coi chừng sập bẫy chữ "Tôi" trong ngoặc kép!</h4>
+                                <div class="space-y-2.5 text-sm text-slate-200 leading-relaxed">
+                                    <p class="p-3 rounded-xl bg-slate-950/70 border border-emerald-500/30">
+                                        👀 <strong class="text-emerald-400">Bẫy kinh điển:</strong> Nếu chữ "tôi" nằm <strong class="text-white">bên trong dấu ngoặc kép "..." hoặc sau dấu gạch đầu dòng hội thoại</strong> (nhân vật đang nói chuyện với nhau), còn lời dẫn bên ngoài vẫn gọi tên nhân vật (Anh thanh niên, Ông họa sĩ, Hắn...) thì vẫn là <strong class="text-amber-300">NGÔI THỨ BA</strong> nha mày!
+                                    </p>
+                                    <p class="p-3 rounded-xl bg-slate-950/70 border border-rose-500/30">
+                                        🚫 <strong class="text-rose-400">Nhớ kỹ:</strong> Đi thi Ngữ văn phổ thông <strong class="text-white">KHÔNG BAO GIỜ</strong> đáp án là "Ngôi thứ hai" đâu, đứa nào ghi ngôi thứ hai là tự hủy!
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="text-xs text-emerald-300 font-bold text-center bg-slate-950/60 py-2 rounded-lg">
+                                Nhìn lời người dẫn chuyện (ngoài câu thoại) là chuẩn 100%!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- THẺ 3: PHƯƠNG THỨC BIỂU ĐẠT CHÍNH -->
+                <div class="flip-card h-[400px] sm:h-[380px] perspective-1000 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <!-- Mặt trước -->
+                        <div class="flip-card-front bg-slate-900 border-2 border-sky-500/40 p-5 sm:p-6 flex flex-col justify-between shadow-xl hover:border-sky-400 transition">
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-4">
+                                    <span class="px-3 py-1 rounded-lg bg-sky-400/20 text-sky-300 font-black text-xs uppercase">
+                                        Thẻ 03 • Nhìn form đoán ngay
+                                    </span>
+                                    <span class="text-xs text-slate-400 font-semibold flex items-center gap-1">
+                                        👆 Bấm để lật mẹo
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-black text-white mb-1 flex items-center gap-2">
+                                    <span>🎯 3. Phương thức biểu đạt chính</span>
+                                </h3>
+                                <p class="text-xs text-sky-300 font-bold mb-4">
+                                    (Nhìn hình thức văn bản là lụm điểm)
+                                </p>
+                                <ul class="space-y-3 text-sm text-slate-200">
+                                    <li class="p-2.5 rounded-xl bg-slate-800/90 border border-slate-700/80">
+                                        <span class="font-extrabold text-pink-400">• Biểu cảm:</span> Thơ ca, bộc lộ cảm xúc yêu, ghét, nhớ, thương (<span class="text-amber-300 font-bold">Đề cho thơ thì 99% là Biểu cảm</span>).
+                                    </li>
+                                    <li class="p-2.5 rounded-xl bg-slate-800/90 border border-slate-700/80">
+                                        <span class="font-extrabold text-emerald-400">• Tự sự:</span> Kể lại câu chuyện có nhân vật, sự việc, diễn biến (<span class="text-emerald-300 font-bold">Đề cho truyện ngắn</span>).
+                                    </li>
+                                    <li class="p-2.5 rounded-xl bg-slate-800/90 border border-slate-700/80">
+                                        <span class="font-extrabold text-sky-400">• Nghị luận:</span> Bàn luận đúng/sai, đưa ra ý kiến, đạo lý, tư tưởng.
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                                <span>Chú ý chữ "CHÍNH"!</span>
+                                <span class="text-sky-400 font-bold">Xem quy tắc "Chính" ➔</span>
+                            </div>
+                        </div>
+
+                        <!-- Mặt sau -->
+                        <div class="flip-card-back bg-gradient-to-br from-sky-950/90 via-slate-900 to-slate-900 border-2 border-sky-400 p-5 sm:p-6 flex flex-col justify-between shadow-xl">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="px-3 py-1 rounded-lg bg-sky-400 text-slate-950 font-black text-xs uppercase">
+                                        💡 Quy Tắc Sống Còn
+                                    </span>
+                                    <span class="text-xs text-sky-300 font-semibold">👆 Bấm quay lại</span>
+                                </div>
+                                <h4 class="text-lg font-black text-white">Hỏi "CHÍNH" thì chỉ được ghi 1 cái duy nhất!</h4>
+                                <div class="space-y-2.5 text-sm text-slate-200 leading-relaxed">
+                                    <p class="p-3 rounded-xl bg-slate-950/70 border border-rose-500/40">
+                                        🚨 <strong class="text-rose-400">Sai lầm mất điểm oan:</strong> Đề hỏi <em>"Phương thức biểu đạt <strong>CHÍNH</strong>"</em> mà mày tham lam ghi "Biểu cảm, tự sự, miêu tả" là giám khảo gạch sạch không cho điểm nào! Hỏi <strong>CHÍNH = Ghi ĐÚNG 1 CÁI</strong>.
+                                    </p>
+                                    <p class="p-3 rounded-xl bg-slate-950/70 border border-sky-500/30">
+                                        ⚡ <strong class="text-sky-300">Công thức 3 giây:</strong><br>
+                                        • Nhìn thấy Thơ ➔ Ghi <strong class="text-pink-400">Biểu cảm</strong>.<br>
+                                        • Nhìn thấy Truyện có nhân vật ➔ Ghi <strong class="text-emerald-400">Tự sự</strong>.<br>
+                                        • Nhìn thấy bài khuyên răn lối sống, thành công, ước mơ ➔ Ghi <strong class="text-sky-400">Nghị luận</strong>.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="text-xs text-sky-300 font-bold text-center bg-slate-950/60 py-2 rounded-lg">
+                                Nhớ: "Chính = 1", "Các phương thức = Kể 2-3 cái"!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BẢNG SO SÁNH 6 THỂ THƠ CHI TIẾT & BẮT BỆNH ĐẾM NHẦM -->
+            <div class="rounded-2xl bg-slate-900 border border-amber-500/40 p-4 sm:p-6 shadow-xl space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+                    <div>
+                        <span class="px-2.5 py-1 rounded-lg bg-amber-400/20 text-amber-300 font-black text-xs uppercase">
+                            BẢNG TRA CỨU THỰC CHIẾN • SOI KỸ TỪNG CHỮ
+                        </span>
+                        <h3 class="text-xl sm:text-2xl font-black text-white mt-1.5">
+                            📋 Bảng So Sánh 6 Thể Thơ Chi Tiết (Kèm Cảnh Báo Đỏ Bắt Bệnh Đếm Lụi)
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-400 mt-1">
+                            Bấm vào nút <span class="text-amber-300 font-bold">"🔢 Bấm Đếm Thử Từng Dòng"</span> ở bất kỳ hàng nào để máy đếm từng chữ ngay trước mắt mày!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Bảng 6 thể thơ responsive -->
+                <div class="overflow-x-auto rounded-xl border border-slate-800">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-950 text-amber-400 text-xs sm:text-sm uppercase font-black border-b border-slate-800">
+                                <th class="p-3.5 sm:p-4 w-1/5">Thể Thơ</th>
+                                <th class="p-3.5 sm:p-4 w-2/5">Dấu Hiệu Nhận Biết Chuẩn</th>
+                                <th class="p-3.5 sm:p-4 w-2/5">Ví Dụ & Cảnh Báo Bắt Bệnh</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800/80 text-xs sm:text-sm">
+                            <!-- 1. Lục bát -->
+                            <tr class="bg-slate-900/60 hover:bg-slate-800/50 transition">
+                                <td class="p-3.5 sm:p-4 align-top font-black text-amber-300">
+                                    1. Lục bát
+                                    <span class="block text-[11px] font-semibold text-slate-400 mt-0.5">(6 chữ - 8 chữ)</span>
+                                </td>
+                                <td class="p-3.5 sm:p-4 align-top text-slate-200 leading-relaxed">
+                                    Dòng <strong class="text-amber-400">6 chữ</strong> xen kẽ dòng <strong class="text-amber-400">8 chữ</strong> luân phiên từ đầu đến cuối bài.
+                                </td>
+                                <td class="p-3.5 sm:p-4 align-top space-y-2">
+                                    <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-200 italic">
+                                        "Quê hương là chùm khế ngọt (6)<br>
+                                        Cho con trèo hái mỗi ngày (8)"
+                                    </div>
+                                    <div class="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs leading-relaxed">
+                                        💡 <strong>Nhắc nhẹ:</strong> Câu <em>"Cho con trèo hái mỗi ngày"</em> đếm thật chỉ có 6 chữ (Thơ 6 chữ). Còn chuẩn Lục bát 6-8 phải là: <strong>"Công cha như núi Thái Sơn (6) / Nghĩa mẹ như nước trong nguồn chảy ra (8)"</strong>!
+                                    </div>
+                                    <div class="flex flex-wrap gap-1.5">
+                                        <button onclick="loadPoemSample('lucbat')" class="px-2.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs transition">
+                                            🔢 Bấm Đếm Thử Chuẩn 6-8
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- 2. Thơ 4 chữ -->
+                            <tr class="bg-slate-900/60 hover:bg-slate-800/50 transition">
+                                <td class="p-3.5 sm:p-4 align-top font-black text-emerald-300">
+                                    2. Thơ 4 chữ
+                                </td>
+                                <td class="p-3.5 sm:p-4 align-top text-slate-200 leading-relaxed">
+                                    Mọi dòng trong bài đều tăm tắp <strong class="text-emerald-400">4 chữ</strong> (hoặc đa số các dòng 4 chữ).
+                                </td>
+                                <td class="p-3.5 sm:p-4 align-top space-y-2">
+                                    <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-200 italic">
+                                        "Mây bay bay cao (4)<br>
+                                        Gió thổi thổi nào... (4)"
+                                    </div>
+                                    <button onclick="loadPoemSample('4chu')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-emerald-400 hover:text-slate-950 text-emerald-300 font-bold text-xs border border-slate-700 transition">
+                                        🔢 Bấm Đếm Thử Từng Dòng
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <!-- 3. Thơ 5 chữ -->
+                            <tr class="bg-slate-900/60 hover:bg-slate-800/50 transition">
+                                <td class="p-3.5 sm:p-4 align-top font-black text-emerald-300">
+                                    3. Thơ 5 chữ
+                                    <span class="block text-[11px] font-semibold text-slate-400 mt-0.5">(Ngũ ngôn)</span>
+                                </td>
+                                <td class="p-3.5 sm:p-4 align-top text-slate-200 leading-relaxed">
+                                    Mọi dòng trong bài đều tăm tắp <strong class="text-emerald-400">5 chữ</strong>.
+                                </td>
+                                <td class="p-3.5 sm:p-4 align-top space-y-2">
+                                    <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-200 italic">
+                                        "Sóng bắt đầu từ gió (5)<br>
+                                        Gió bắt đầu từ đâu... (5)"
+                                    </div>
+                                    <button onclick="loadPoemSample('5chu')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-emerald-400 hover:text-slate-950 text-emerald-300 font-bold text-xs border border-slate-700 transition">
+                                        🔢 Bấm Đếm Thử Từng Dòng
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <!-- 4. Thơ 7 chữ -->
+                            <tr class="bg-slate-900/60 hover:bg-slate-800/50 transition">
+                                <td class="p-3.5 sm:p-4 align-top font-black text-emerald-300">
+                                    4. Thơ 7 chữ
+                                    <span class="block text-[11px] font-semibold text-slate-400 mt-0.5">(Thất ngôn)</span>
+                                </td>
+                                <td class="p-3.5 sm:p-4 align-top text-slate-200 leading-relaxed">
+                                    Mọi dòng trong bài đều tăm tắp <strong class="text-emerald-400">7 chữ</strong>.
+                                </td>
+                                <td class="p-3.5 sm:p-4 align-top space-y-2">
+                                    <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-200 italic">
+                                        "Sông Mã xa rồi Tây Tiến ơi (7)<br>
+                                        Nhớ về rừng núi nhớ chơi vơi... (7)"
+                                    </div>
+                                    <button onclick="loadPoemSample('7chu')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-emerald-400 hover:text-slate-950 text-emerald-300 font-bold text-xs border border-slate-700 transition">
+                                        🔢 Bấm Đếm Thử Từng Dòng
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <!-- 5. Thơ 8 chữ (Có Cảnh báo đỏ bắt bệnh) -->
+                            <tr class="bg-slate-900/60 hover:bg-slate-800/50 transition">
+                                <td class="p-3.5 sm:p-4 align-top font-black text-rose-400">
+                                    5. Thơ 8 chữ
+                                    <span class="block text-[11px] font-semibold text-slate-400 mt-0.5">(Bát ngôn)</span>
+                                </td>
+                                <td class="p-3.5 sm:p-4 align-top text-slate-200 leading-relaxed">
+                                    Mọi dòng trong bài đều tăm tắp <strong class="text-rose-400">8 chữ</strong>.
+                                </td>
+                                <td class="p-3.5 sm:p-4 align-top space-y-2.5">
+                                    <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-400 line-through italic">
+                                        "Tiếng suối trong như tiếng hát xa / Trăng lồng cổ thụ bóng lồng hoa..."
+                                    </div>
+                                    <div class="p-3 rounded-xl bg-rose-950/80 border border-rose-500 text-rose-100 text-xs leading-relaxed">
+                                        🚨 <strong class="text-rose-300 uppercase">CẢNH BÁO ĐỎ BẮT BỆNH:</strong> Câu <em>"Tiếng suối trong như tiếng hát xa"</em> đếm ra chỉ có <strong>7 chữ</strong> thôi nha mày (Thơ 7 chữ)!<br>
+                                        ✅ <strong>Ví dụ chuẩn 8 chữ phải là:</strong><br>
+                                        <span class="text-emerald-300 font-bold not-italic">"Quê hương tôi có con sông xanh biếc (8)<br>Nước gương trong soi tóc những hàng tre (8)"</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-1.5">
+                                        <button onclick="loadPoemSample('8chu_trap')" class="px-2.5 py-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500 hover:text-white text-rose-300 font-bold text-xs border border-rose-500/40 transition">
+                                            🔍 Đếm Thử Câu Bẫy (Ra 7 Chữ!)
+                                        </button>
+                                        <button onclick="loadPoemSample('8chu_chuan')" class="px-2.5 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs transition">
+                                            🔢 Đếm Thử Chuẩn 8 Chữ
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- 6. Thơ Tự do (Có Cảnh báo đỏ bắt bệnh) -->
+                            <tr class="bg-slate-900/60 hover:bg-slate-800/50 transition">
+                                <td class="p-3.5 sm:p-4 align-top font-black text-sky-400">
+                                    6. Thơ Tự do
+                                </td>
+                                <td class="p-3.5 sm:p-4 align-top text-slate-200 leading-relaxed">
+                                    Các dòng dài ngắn lộn xộn (<strong class="text-sky-300">dòng 3 chữ, dòng 7 chữ, dòng 9 chữ...</strong>), không theo một quy luật số chữ cố định nào cả.
+                                </td>
+                                <td class="p-3.5 sm:p-4 align-top space-y-2.5">
+                                    <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-400 line-through italic">
+                                        "Sương chùng chình qua ngõ / Hình như thu đã về / Sông được lúc dềnh dàng / Chim bắt đầu vội vã..."
+                                    </div>
+                                    <div class="p-3 rounded-xl bg-rose-950/80 border border-rose-500 text-rose-100 text-xs leading-relaxed">
+                                        🚨 <strong class="text-rose-300 uppercase">CẢNH BÁO ĐỎ BẮT BỆNH:</strong> Đếm kĩ đi con, 4 dòng này của bài <em>Sang Thu</em> dòng nào cũng <strong>5 chữ chằn chặn</strong> ➔ Đây là <strong>Thơ 5 chữ</strong>!<br>
+                                        ✅ <strong>Ví dụ chuẩn Thơ Tự do phải là:</strong><br>
+                                        <span class="text-sky-300 font-bold not-italic">"Đất nước (2)<br>Của những người mẹ (5)<br>Mặc áo thay vai (4)<br>Hạt lúa củ khoai (4)<br>Bền bỉ nuôi chồng, nuôi con chiến đấu (8)"</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-1.5">
+                                        <button onclick="loadPoemSample('tudo_trap')" class="px-2.5 py-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500 hover:text-white text-rose-300 font-bold text-xs border border-rose-500/40 transition">
+                                            🔍 Đếm Thử Sang Thu (Ra 5 Chữ!)
+                                        </button>
+                                        <button onclick="loadPoemSample('tudo')" class="px-2.5 py-1.5 rounded-lg bg-sky-400 hover:bg-sky-300 text-slate-950 font-extrabold text-xs transition">
+                                            🔢 Đếm Thử Chuẩn Thơ Tự Do
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- KHUNG MẸO TỔNG KẾT NHANH 2 BƯỚC -->
+                <div class="rounded-2xl bg-gradient-to-r from-amber-950/80 via-slate-900 to-rose-950/80 border-2 border-amber-400 p-4 sm:p-6 shadow-lg space-y-4">
+                    <div class="flex items-center gap-2.5">
+                        <span class="text-2xl">🔥</span>
+                        <h4 class="text-base sm:text-xl font-black text-amber-300 uppercase tracking-wide">
+                            MẸO TỔNG KẾT NHANH ĐỂ MAI VÀO PHÒNG THI KHÔNG BỊ LỪA:
+                        </h4>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 text-sm">
+                        <div class="md:col-span-4 p-4 rounded-xl bg-slate-950/90 border border-amber-500/40 flex flex-col justify-center">
+                            <span class="text-xs font-black uppercase text-amber-400 mb-1">BƯỚC 1 • KHỞI ĐỘNG NGÓN TAY</span>
+                            <p class="text-white font-bold text-base leading-snug">
+                                1. Bước 1: Đếm thử số chữ ở <span class="text-amber-300 underline">dòng thứ nhất</span> và <span class="text-amber-300 underline">dòng thứ hai</span> (và liếc thêm dòng 3, dòng 4 cho chắc cốp!).
+                            </p>
+                        </div>
+                        <div class="md:col-span-8 p-4 rounded-xl bg-slate-950/90 border border-emerald-500/40 space-y-2.5">
+                            <span class="text-xs font-black uppercase text-emerald-400 block">BƯỚC 2 • CHỐT ĐÁP ÁN TRONG 3 GIÂY</span>
+                            <ul class="space-y-2 text-slate-100">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-amber-400 font-black">➔</span>
+                                    <span>Thấy dòng 6, dòng 8 luân phiên ➔ Ghi ngay <strong class="text-amber-300 uppercase">Lục bát</strong>.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald-400 font-black">➔</span>
+                                    <span>Thấy dòng nào cũng chằn chặn 5 chữ (hoặc 7 chữ) từ trên xuống dưới ➔ Ghi đúng tên <strong class="text-emerald-300 uppercase">Thơ 5 chữ</strong> hoặc <strong class="text-emerald-300 uppercase">Thơ 7 chữ</strong> (<strong class="text-rose-400 underline">Cấm được ghi là tự do nha con!</strong>).</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-sky-400 font-black">➔</span>
+                                    <span>Thấy dòng trên 4 chữ, dòng dưới 8 chữ, dòng tiếp theo 5 chữ lộn xộn lung tung ➔ Lúc đó mới được phép chốt là <strong class="text-sky-300 uppercase">Thể thơ Tự do</strong>.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CÔNG CỤ MINI: MÁY ĐẾM CHỮ BẮT THỂ THƠ TỨC THÌ -->
+            <div id="poemCounterWidget" class="rounded-2xl bg-slate-900/90 border border-slate-800 p-4 sm:p-6 shadow-xl">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
+                    <div>
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-amber-400">CÔNG CỤ THỰC CHIẾN CÂU 1</span>
+                        <h3 class="text-lg sm:text-xl font-black text-white">🧮 Máy Đếm Chữ Bắt Sống Thể Thơ (Thử Đi Cho Quen Mắt!)</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="loadPoemSample('lucbat')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-amber-400 hover:text-slate-950 text-xs font-bold text-slate-200 border border-slate-700 transition">
+                            Mẫu Lục bát (6-8)
+                        </button>
+                        <button onclick="loadPoemSample('4chu')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-emerald-400 hover:text-slate-950 text-xs font-bold text-slate-200 border border-slate-700 transition">
+                            Mẫu 4 chữ
+                        </button>
+                        <button onclick="loadPoemSample('5chu')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-emerald-400 hover:text-slate-950 text-xs font-bold text-slate-200 border border-slate-700 transition">
+                            Mẫu 5 chữ
+                        </button>
+                        <button onclick="loadPoemSample('7chu')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-emerald-400 hover:text-slate-950 text-xs font-bold text-slate-200 border border-slate-700 transition">
+                            Mẫu 7 chữ
+                        </button>
+                        <button onclick="loadPoemSample('8chu_chuan')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-rose-400 hover:text-slate-950 text-xs font-bold text-slate-200 border border-slate-700 transition">
+                            Mẫu 8 chữ
+                        </button>
+                        <button onclick="loadPoemSample('tudo')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-sky-400 hover:text-slate-950 text-xs font-bold text-slate-200 border border-slate-700 transition">
+                            Mẫu Tự do
+                        </button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    <div>
+                        <textarea id="poemInput" oninput="analyzePoemMeter()" rows="4" placeholder="Dán hoặc gõ mấy câu thơ vào đây (mỗi câu 1 dòng), tao đếm chữ từng dòng rồi chốt thể thơ cho mày coi..." class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 focus:outline-none p-3.5 text-sm text-white placeholder-slate-500 font-medium"></textarea>
+                    </div>
+                    <div id="poemResultBox" class="rounded-xl bg-slate-950 border border-slate-800 p-4 flex flex-col justify-between">
+                        <!-- Tự động cập nhật bằng JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================================
+             PHẦN 2: BẢNG BẮT THÓP 9 BIỆN PHÁP TU TỪ
+             ========================================================================= -->
+        <section id="sec-part2" class="app-section space-y-6">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-slate-800 pb-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-400/10 border border-emerald-400/30 text-emerald-300 text-xs font-extrabold mb-2">
+                        PHẦN 2 • TRÙM CUỐI NHẬN DIỆN (HAY RA Ở CÂU 2 & CÂU 3)
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-black text-white">
+                        Bảng Bắt Thóp 9 Biện Pháp Tu Từ
+                    </h2>
+                    <p class="text-slate-400 text-sm mt-1">
+                        Quên định nghĩa dài dòng trong sách giáo khoa đi! Cứ tia thấy đúng <span class="text-amber-300 font-bold">dấu hiệu ăn tiền</span> này trong đề là ghi tên nó ra.
+                    </p>
+                </div>
+
+                <!-- Nút bật/tắt tô sáng từ khóa -->
+                <div class="flex items-center gap-3">
+                    <button id="toggleHighlightBtn" onclick="toggleKeywordHighlight()" class="px-4 py-2.5 rounded-xl bg-amber-400 text-slate-950 font-extrabold text-xs sm:text-sm shadow-lg shadow-amber-400/20 hover:bg-amber-300 transition flex items-center gap-2">
+                        <span>✨ Đang Bật Tô Sáng Từ Khóa Ăn Tiền</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- THANH TÌM KIẾM & BỘ LỌC NHÓM -->
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-lg">
+                <div class="flex flex-col md:flex-row gap-3">
+                    <div class="relative flex-1">
+                        <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">🔍</span>
+                        <input id="rhetoricSearch" oninput="filterRhetoricCards()" type="text" placeholder="Gõ tìm nhanh: 'như', 'Mặt Trời', 'Áo chàm', 'dấu phẩy', 'chấm hỏi', 'ẩn dụ'..." class="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 focus:outline-none text-sm text-white placeholder-slate-500">
+                        <button onclick="clearRhetoricSearch()" id="clearSearchBtn" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-white bg-slate-800 px-2 py-1 rounded">
+                            Xóa
+                        </button>
+                    </div>
+                    <!-- Nhóm lọc nhanh -->
+                    <div class="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0">
+                        <button onclick="setRhetoricGroup('all')" data-group="all" class="rhet-filter-btn shrink-0 px-3 py-2 rounded-xl text-xs font-extrabold bg-amber-400 text-slate-950 transition">
+                            Tất cả (9)
+                        </button>
+                        <button onclick="setRhetoricGroup('hinhanh')" data-group="hinhanh" class="rhet-filter-btn shrink-0 px-3 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
+                            Nhóm Gợi Hình (So sánh/Nhân hóa/Ẩn/Hoán)
+                        </button>
+                        <button onclick="setRhetoricGroup('nhipdieu')" data-group="nhipdieu" class="rhet-filter-btn shrink-0 px-3 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
+                            Nhóm Nhịp Điệu (Điệp/Liệt kê)
+                        </button>
+                        <button onclick="setRhetoricGroup('dacbiet')" data-group="dacbiet" class="rhet-filter-btn shrink-0 px-3 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
+                            Nhóm Đặc Biệt (Hỏi/Quá/Giảm)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mẹo phân biệt nhanh Ẩn dụ vs Hoán dụ -->
+                <div class="p-3 rounded-xl bg-indigo-950/50 border border-indigo-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs sm:text-sm">
+                    <div>
+                        <span class="font-extrabold text-amber-300">⚡ Mẹo chống nhầm ẨN DỤ và HOÁN DỤ trong 3 giây:</span>
+                        <span class="text-slate-200"> Thử chêm chữ <strong class="text-emerald-300">"NHƯ"</strong> vào giữa A và B. Nếu hợp lý (Bác Hồ <strong class="text-emerald-300">như</strong> Mặt Trời) ➔ <strong class="text-amber-300">ẨN DỤ</strong>. Nếu vô lý (Người dân Việt Bắc <strong class="text-rose-400">như</strong> cái áo chàm?!) ➔ <strong class="text-sky-300">HOÁN DỤ</strong>!</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DANH SÁCH 9 BIỆN PHÁP TU TỪ -->
+            <div id="rhetoricGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Sẽ được render từ mảng chuẩn 100% kiến thức -->
+            </div>
+        </section>
+
+        <!-- =========================================================================
+             PHẦN 3: CÔNG THỨC 4 BƯỚC & MÁY GHÉP ĐOẠN VĂN TỰ ĐỘNG
+             ========================================================================= -->
+        <section id="sec-part3" class="app-section space-y-6">
+            <div class="border-b border-slate-800 pb-4">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs font-extrabold mb-2">
+                    PHẦN 3 • CÂU ĂN ĐIỂM QUYẾT ĐỊNH (1.0 ĐIỂM TRỌN VẸN)
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-black text-white">
+                    Công Thức 4 Bước "Phân Tích Tác Dụng Biện Pháp Tu Từ" & Máy Ghép Văn Mẫu
+                </h2>
+                <p class="text-slate-400 text-sm mt-1">
+                    Đề hỏi <em>"Nêu tác dụng của biện pháp tu từ..."</em> thì cấm viết cụt lủn 1 dòng! Cứ bê nguyên khung 4 bước này vào bài thi là giám khảo hết đường trừ điểm.
+                </p>
+            </div>
+
+            <!-- CẢNH BÁO ĐỎ BẮT BUỘC -->
+            <div class="rounded-2xl bg-gradient-to-r from-rose-950 via-red-950/90 to-rose-950 border-2 border-rose-500 p-4 sm:p-5 shadow-lg shadow-rose-950/50 flex items-start gap-3.5">
+                <div class="text-2xl sm:text-3xl shrink-0">🚨</div>
+                <div>
+                    <h3 class="text-base sm:text-lg font-black text-rose-300 uppercase tracking-wide">
+                        CẢNH BÁO ĐỎ: KHÔNG TRÍCH TỪ NGỮ LÀ MẤT 0.25 - 0.5 ĐIỂM!
+                    </h3>
+                    <p class="text-sm text-rose-100 mt-1 leading-relaxed">
+                        90% tụi học sinh mất nửa số điểm câu này vì chỉ ghi mỗi <em>"Tác giả dùng biện pháp so sánh giúp câu thơ sinh động..."</em> mà <strong>quên chép lại từ ngữ/hình ảnh trong đề vào dấu ngoặc kép "..."</strong>. Nhớ nha con: Chỉ tên biện pháp + Mở ngoặc kép chép bằng chứng ra!
+                    </p>
+                </div>
+            </div>
+
+            <!-- SƠ ĐỒ 4 BƯỚC ĂN TRỌN ĐIỂM -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Bước 1 -->
+                <div class="rounded-2xl bg-slate-900 border border-rose-500/40 p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 rounded-lg bg-rose-500/20 text-rose-300 font-black text-xs uppercase">
+                                BƯỚC 1 • CHỈ RA (BẮT BUỘC TRÍCH DẪN)
+                            </span>
+                            <span class="text-xs font-bold text-rose-400">+0.25 điểm</span>
+                        </div>
+                        <p class="text-sm sm:text-base text-slate-100 leading-relaxed bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                            "Tác giả đã sử dụng rất thành công biện pháp tu từ <span class="text-rose-400 font-extrabold">[Tên biện pháp]</span> được thể hiện qua hình ảnh/từ ngữ <span class="text-amber-300 font-extrabold">"[Chép lại từ ngữ/câu thơ]"</span>."
+                        </p>
+                    </div>
+                    <p class="text-xs text-rose-300 font-semibold mt-3">
+                        ⚠️ Cảnh báo đỏ: Không trích từ ngữ là mất 0.25 - 0.5 điểm!
+                    </p>
+                </div>
+
+                <!-- Bước 2 -->
+                <div class="rounded-2xl bg-slate-900 border border-amber-500/40 p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 rounded-lg bg-amber-500/20 text-amber-300 font-black text-xs uppercase">
+                                BƯỚC 2 • TÁC DỤNG NGHỆ THUẬT (HỌC VẸT THEO NHÓM)
+                            </span>
+                            <span class="text-xs font-bold text-amber-400">+0.25 điểm</span>
+                        </div>
+                        <div class="space-y-2 text-xs sm:text-sm text-slate-200 bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                            <p><strong class="text-amber-400">+ Nhóm So sánh/Nhân hóa/Ẩn dụ/Hoán dụ:</strong> Giúp câu thơ/câu văn trở nên sinh động, hấp dẫn, giàu hình ảnh và giàu sức gợi hình, gợi cảm.</p>
+                            <p><strong class="text-emerald-400">+ Nhóm Điệp ngữ/Liệt kê:</strong> Giúp tạo nhịp điệu hài hòa, dồn dập (hoặc tha thiết), làm tăng sức biểu đạt và gây ấn tượng mạnh.</p>
+                            <p><strong class="text-sky-400">+ Nhóm Câu hỏi tu từ:</strong> Tạo giọng điệu băn khoăn, trăn trở, xoáy sâu vào tâm trí người đọc.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bước 3 -->
+                <div class="rounded-2xl bg-slate-900 border border-emerald-500/40 p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 font-black text-xs uppercase">
+                                BƯỚC 3 • TÁC DỤNG NỘI DUNG
+                            </span>
+                            <span class="text-xs font-bold text-emerald-400">+0.25 điểm</span>
+                        </div>
+                        <p class="text-sm sm:text-base text-slate-100 leading-relaxed bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                            "Qua đó, biện pháp này nhằm nhấn mạnh / làm nổi bật <span class="text-emerald-400 font-extrabold">[Nội dung câu đó]</span>."
+                        </p>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-3">
+                        💡 Mẹo: Đọc câu thơ đó nói về cái gì thì chép ý đó vào đây!
+                    </p>
+                </div>
+
+                <!-- Bước 4 -->
+                <div class="rounded-2xl bg-slate-900 border border-sky-500/40 p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-3 py-1 rounded-lg bg-sky-500/20 text-sky-300 font-black text-xs uppercase">
+                                BƯỚC 4 • THÁI ĐỘ, TÌNH CẢM TÁC GIẢ
+                            </span>
+                            <span class="text-xs font-bold text-sky-400">+0.25 điểm</span>
+                        </div>
+                        <p class="text-sm sm:text-base text-slate-100 leading-relaxed bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                            "Đồng thời, thể hiện tình cảm <span class="text-sky-400 font-extrabold">[yêu mến / trân trọng / tự hào / biết ơn / xót xa...]</span> sâu sắc của tác giả dành cho <span class="text-indigo-300 font-extrabold">[đối tượng trong bài]</span>."
+                        </p>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-3">
+                        💡 Mẹo: Cứ chốt "trân trọng, yêu mến, tự hào" là đúng 95% mọi bài thơ!
+                    </p>
+                </div>
+            </div>
+
+            <!-- TÍNH NĂNG ĐẶC BIỆT: MÁY GHÉP ĐOẠN VĂN TỰ ĐỘNG -->
+            <div class="rounded-3xl bg-gradient-to-b from-slate-900 to-slate-950 border-2 border-amber-400/50 p-5 sm:p-7 shadow-2xl space-y-6">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+                    <div>
+                        <span class="px-3 py-1 rounded-full bg-amber-400 text-slate-950 font-black text-xs uppercase">
+                            🛠️ TÍNH NĂNG ĐẶC BIỆT • REAL-TIME GENERATOR
+                        </span>
+                        <h3 class="text-xl sm:text-2xl font-black text-white mt-2">
+                            Máy Ghép Đoạn Văn Tự Động Chuẩn 4 Bước
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
+                            Chọn biện pháp + điền vài chữ vào ô trống ➔ Máy tự động lắp ráp thành đoạn văn hoàn chỉnh ăn trọn 1.0 điểm!
+                        </p>
+                    </div>
+
+                    <!-- Các nút nạp ví dụ mẫu tức thì -->
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="loadBuilderSample(1)" class="px-3.5 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs sm:text-sm transition shadow-md shadow-amber-400/20">
+                            ⚡ Nạp mẫu: "Công cha như núi Thái Sơn"
+                        </button>
+                        <button onclick="loadBuilderSample(2)" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 font-bold text-xs sm:text-sm transition">
+                            Mẫu 2: "Mặt Trời đi qua trên lăng"
+                        </button>
+                        <button onclick="loadBuilderSample(3)" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-slate-700 font-bold text-xs sm:text-sm transition">
+                            Mẫu 3: "Tre giữ làng, tre giữ nước..."
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    <!-- Cột Trái: Form Nhập Liệu -->
+                    <div class="lg:col-span-6 space-y-4 bg-slate-900/70 p-4 sm:p-5 rounded-2xl border border-slate-800">
+                        <div>
+                            <label class="block text-xs font-extrabold uppercase text-rose-400 mb-1.5">
+                                1. Chọn Biện Pháp Tu Từ (Bước 1 & Bước 2 tự động nhảy theo!)
+                            </label>
+                            <select id="b_device" onchange="updateParagraphBuilder()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 focus:outline-none p-3 text-sm font-bold text-white">
+                                <option value="so sánh">1. So sánh (Nhóm gợi hình, sinh động)</option>
+                                <option value="nhân hóa">2. Nhân hóa (Nhóm gợi hình, gần gũi)</option>
+                                <option value="ẩn dụ">3. Ẩn dụ (Nhóm gợi hình, hàm súc)</option>
+                                <option value="hoán dụ">4. Hoán dụ (Nhóm gợi hình, gợi cảm)</option>
+                                <option value="điệp ngữ">5. Điệp ngữ / Điệp từ (Nhóm nhịp điệu, nhấn mạnh)</option>
+                                <option value="liệt kê">6. Liệt kê (Nhóm nhịp điệu, toàn diện)</option>
+                                <option value="câu hỏi tu từ">7. Câu hỏi tu từ (Nhóm xoáy sâu cảm xúc)</option>
+                                <option value="nói quá">8. Nói quá (Phóng đại quy mô, gây ấn tượng)</option>
+                                <option value="nói giảm nói tránh">9. Nói giảm nói tránh (Giảm đau thương, trang trọng)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-extrabold uppercase text-amber-400 mb-1.5">
+                                2. Từ ngữ / Câu thơ trích dẫn (Bắt buộc chép từ đề ra!)
+                            </label>
+                            <input id="b_quote" oninput="updateParagraphBuilder()" type="text" placeholder="VD: Công cha như núi Thái Sơn" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 focus:outline-none p-3 text-sm text-white placeholder-slate-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-extrabold uppercase text-emerald-400 mb-1.5">
+                                3. Nội dung chính của câu đó (Bước 3: Nhấn mạnh cái gì?)
+                            </label>
+                            <input id="b_meaning" oninput="updateParagraphBuilder()" type="text" placeholder="VD: công lao sinh thành, dưỡng dục to lớn vĩ đại của người cha" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-emerald-400 focus:outline-none p-3 text-sm text-white placeholder-slate-500">
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-extrabold uppercase text-sky-400 mb-1.5">
+                                    4A. Tình cảm tác giả (Bước 4)
+                                </label>
+                                <input id="b_emotion" oninput="updateParagraphBuilder()" type="text" placeholder="VD: biết ơn, kính yêu và trân trọng" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-sky-400 focus:outline-none p-3 text-sm text-white placeholder-slate-500">
+                                <div class="flex flex-wrap gap-1 mt-1.5">
+                                    <button type="button" onclick="setEmotionChip('yêu mến, trân trọng')" class="text-[11px] px-2 py-0.5 rounded bg-slate-800 hover:bg-sky-500/20 text-sky-300 border border-slate-700">yêu mến, trân trọng</button>
+                                    <button type="button" onclick="setEmotionChip('biết ơn, tự hào')" class="text-[11px] px-2 py-0.5 rounded bg-slate-800 hover:bg-sky-500/20 text-sky-300 border border-slate-700">biết ơn, tự hào</button>
+                                    <button type="button" onclick="setEmotionChip('xót xa, đồng cảm')" class="text-[11px] px-2 py-0.5 rounded bg-slate-800 hover:bg-sky-500/20 text-sky-300 border border-slate-700">xót xa, đồng cảm</button>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-extrabold uppercase text-indigo-400 mb-1.5">
+                                    4B. Dành cho đối tượng nào?
+                                </label>
+                                <input id="b_target" oninput="updateParagraphBuilder()" type="text" placeholder="VD: người cha và tình phụ tử thiêng liêng" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-indigo-400 focus:outline-none p-3 text-sm text-white placeholder-slate-500">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cột Phải: Kết Quả Đoạn Văn Hoàn Chỉnh -->
+                    <div class="lg:col-span-6 space-y-4">
+                        <div class="rounded-2xl bg-slate-950 border-2 border-slate-800 p-5 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                                    ĐOẠN VĂN HOÀN CHỈNH CHUẨN 4 BƯỚC:
+                                </span>
+                                <button onclick="copyGeneratedParagraph()" class="px-3 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs transition flex items-center gap-1">
+                                    📋 Copy Đoạn Văn
+                                </button>
+                            </div>
+
+                            <!-- Đoạn văn được tô màu theo 4 bước -->
+                            <div id="generatedOutput" class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 text-sm sm:text-base leading-relaxed text-slate-100 select-all">
+                                <!-- Render bằng JS -->
+                            </div>
+
+                            <!-- Chú thích màu 4 bước -->
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 text-[11px] font-bold">
+                                <div class="px-2.5 py-1.5 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-300">
+                                    🔴 Bước 1: Chỉ ra + Trích dẫn
+                                </div>
+                                <div class="px-2.5 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300">
+                                    🟡 Bước 2: Tác dụng Nghệ thuật
+                                </div>
+                                <div class="px-2.5 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300">
+                                    🟢 Bước 3: Tác dụng Nội dung
+                                </div>
+                                <div class="px-2.5 py-1.5 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-300">
+                                    🔵 Bước 4: Tình cảm tác giả
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================================
+             PHẦN 4: ĐỀ ĐỌC HIỂU FAKE THỰC CHIẾN & MINI GAME 5 CÂU TRẮC NGHIỆM BẮT BỆNH
+             ========================================================================= -->
+        <section id="sec-part4" class="app-section space-y-8">
+            <div class="border-b border-slate-800 pb-4">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 text-xs font-extrabold mb-2">
+                    PHẦN 4 • THỰC CHIẾN LUYỆN TAY & MINI GAME BẮT BỆNH
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-black text-white">
+                    Đề Đọc Hiểu Fake Chuẩn Phòng Thi & Mini Game 5 Câu Bắt Bệnh
+                </h2>
+                <p class="text-slate-400 text-sm mt-1">
+                    Học lý thuyết xong phải thực chiến liền cho nhớ! Bên trái là <span class="text-amber-300 font-bold">Mini Game 5 Câu Trắc Nghiệm</span>, bên phải là <span class="text-emerald-300 font-bold">Đề Fake Luyện Viết Chấm Điểm Tự Động Tức Thì</span>!
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- CỘT 1: MINI GAME TEST NHANH (5 CÂU TRẮC NGHIỆM) -->
+                <div class="lg:col-span-7 space-y-5">
+                    <div class="rounded-2xl bg-slate-900 border border-slate-800 p-5 sm:p-6 shadow-xl">
+                        <div class="flex flex-wrap items-center justify-between gap-3 mb-5 pb-4 border-b border-slate-800">
+                            <div>
+                                <span class="text-xs font-extrabold uppercase text-amber-400">🎮 MINI GAME TEST NHANH</span>
+                                <h3 class="text-xl font-black text-white">5 Câu Trắc Nghiệm Bắt Bệnh Đọc Hiểu</h3>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="px-3.5 py-1.5 rounded-xl bg-slate-950 border border-slate-700 text-xs sm:text-sm font-black">
+                                    Điểm của mày: <span id="quizScore" class="text-amber-400">0/5</span>
+                                </div>
+                                <button onclick="resetQuiz()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300 border border-slate-700 transition">
+                                    🔄 Làm lại
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Danh sách 5 câu hỏi -->
+                        <div id="quizContainer" class="space-y-5">
+                            <!-- Render bằng JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CỘT 2: ĐỀ FAKE THỰC CHIẾN (VIẾT THỬ CHẤM ĐIỂM TỨC THÌ KHÔNG TREO) -->
+                <div class="lg:col-span-5 space-y-5 lg:sticky lg:top-24">
+                    <div class="rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border-2 border-emerald-500/40 p-5 sm:p-6 shadow-xl space-y-4">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="px-3 py-1 rounded-full bg-emerald-400/20 text-emerald-300 font-black text-xs uppercase">
+                                📝 ĐỀ FAKE THỰC CHIẾN (DÙNG ĐƯỢC LIỀN)
+                            </span>
+                            <div class="flex gap-1">
+                                <button onclick="switchFakeExam(1)" id="examBtn1" class="px-2.5 py-1 rounded-lg bg-emerald-400 text-slate-950 font-extrabold text-xs">Đề Thơ</button>
+                                <button onclick="switchFakeExam(2)" id="examBtn2" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-bold text-xs hover:bg-slate-700">Đề Truyện</button>
+                            </div>
+                        </div>
+
+                        <!-- Nội dung Đề Fake -->
+                        <div id="fakeExamBox" class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-3 text-sm">
+                            <!-- Sẽ được load bằng JS -->
+                        </div>
+
+                        <!-- Ô luyện viết câu phân tích tác dụng BPTT & máy chấm tự động -->
+                        <div class="space-y-2.5 pt-2 border-t border-slate-800">
+                            <div class="flex items-center justify-between">
+                                <label class="text-xs font-extrabold uppercase text-amber-300">
+                                    ✍️ Gõ thử câu trả lời của mày vào đây (Chấm realtime):
+                                </label>
+                                <button onclick="fillSampleExamAnswer()" class="text-xs font-bold text-emerald-400 hover:underline">
+                                    + Điền thử đáp án mẫu
+                                </button>
+                            </div>
+                            <textarea id="examUserAnswer" oninput="gradeExamAnswerRealtime()" rows="4" placeholder="Gõ thử câu trả lời Câu 3 (Phân tích tác dụng BPTT) theo đúng 4 bước vừa học xem máy chấm mày được mấy điểm..." class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-emerald-400 focus:outline-none p-3.5 text-sm text-white placeholder-slate-500"></textarea>
+
+                            <!-- Bảng chấm điểm 4 tiêu chí tức thì -->
+                            <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 space-y-2.5">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-bold text-slate-400">Máy chấm tự động theo 4 bước:</span>
+                                    <span id="liveGradeScore" class="text-sm font-black text-amber-400">0.0 / 1.0 điểm</span>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs" id="liveChecklist">
+                                    <!-- Cập nhật tức thì khi gõ -->
+                                </div>
+                                <p id="liveGradeComment" class="text-xs text-slate-300 italic pt-1 border-t border-slate-900">
+                                    Gõ thử đi mày, tao soi từng chữ xem mày có quên dấu ngoặc kép không!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL PHAO TÓM TẮT 30 GIÂY TRƯỚC KHI VÀO PHÒNG THI -->
+    <div id="cheatModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-slate-900 border-2 border-amber-400 rounded-3xl max-w-2xl w-full p-5 sm:p-7 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <h3 class="text-lg sm:text-xl font-black text-amber-400 flex items-center gap-2">
+                    ⚡ PHAO NHẨM NHANH 30 GIÂY TRƯỚC KHI PHÁT ĐỀ
+                </h3>
+                <button onclick="closeCheatModal()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-rose-500 text-white font-bold text-sm transition">
+                    Đóng ✕
+                </button>
+            </div>
+            <div class="space-y-3 text-xs sm:text-sm text-slate-200 leading-relaxed">
+                <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
+                    <strong class="text-amber-400 block mb-1">1. CÂU 1 (0.5 - 0.75đ):</strong>
+                    • <strong>Thể thơ:</strong> Đếm số chữ! 6-8 là <em>Lục bát</em>; đều tăm tắp là <em>4, 5, 7, 8 chữ</em>; dài ngắn lộn xộn là <em>Tự do</em>.<br>
+                    • <strong>Ngôi kể:</strong> Xưng "tôi/mình/chúng tôi" = <em>Ngôi thứ nhất</em>. Gọi tên nhân vật = <em>Ngôi thứ ba</em>.<br>
+                    • <strong>PTBĐ chính (Chỉ ghi 1 cái!):</strong> Thơ = <em>Biểu cảm</em> | Truyện = <em>Tự sự</em> | Bàn luận đạo lý = <em>Nghị luận</em>.
+                </div>
+                <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
+                    <strong class="text-emerald-400 block mb-1">2. BẮT NHANH 9 BIỆN PHÁP TU TỪ:</strong>
+                    • Có "như, là, tựa như, hơn, kém" ➔ <strong>So sánh</strong>.<br>
+                    • Gọi vật bằng từ chỉ người (ông, chị, buồn, trầm ngâm...) ➔ <strong>Nhân hóa</strong>.<br>
+                    • Gọi A bằng B vì nét giống nhau (so sánh ngầm: Mặt Trời = Bác) ➔ <strong>Ẩn dụ</strong>.<br>
+                    • Gọi A bằng B vì đi liền nhau (Áo chàm = người Việt Bắc) ➔ <strong>Hoán dụ</strong>.<br>
+                    • Lặp lại từ/cụm từ ➔ <strong>Điệp ngữ</strong> | Nhiều dấu phẩy kể hàng loạt ➔ <strong>Liệt kê</strong>.<br>
+                    • Dấu chấm hỏi (?) xoáy cảm xúc ➔ <strong>Câu hỏi tu từ</strong>.<br>
+                    • Phóng đại ("nát óc", "nghiêng nước") ➔ <strong>Nói quá</strong> | Tránh đau buồn ("đi", "nhắm mắt") ➔ <strong>Nói giảm nói tránh</strong>.
+                </div>
+                <div class="p-3.5 rounded-xl bg-rose-950/50 border border-rose-500/40">
+                    <strong class="text-rose-300 block mb-1">3. CÔNG THỨC 4 BƯỚC PHÂN TÍCH TÁC DỤNG (1.0đ):</strong>
+                    <strong>B1:</strong> Gọi tên BPTT + Mở ngoặc kép <code class="text-amber-300">"chép lại từ ngữ"</code> (Quên là bay 0.5đ!).<br>
+                    <strong>B2:</strong> Nghệ thuật (Sinh động, gợi hình gợi cảm / Tạo nhịp điệu nhấn mạnh / Xoáy sâu trăn trở).<br>
+                    <strong>B3:</strong> Nội dung (Nhấn mạnh / làm nổi bật [nội dung câu đó]).<br>
+                    <strong>B4:</strong> Tình cảm tác giả (Yêu mến, trân trọng, tự hào, biết ơn...).
+                </div>
+            </div>
+            <div class="pt-2 text-right">
+                <button onclick="closeCheatModal()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-amber-400 text-slate-950 font-black text-sm hover:bg-amber-300 transition">
+                    Đã Nhớ Trong Đầu! Chiến Thôi 💪
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-<div class="container">
-
-  <div class="warning-banner">
-    <span class="warn-icon">⚠️</span>
-    <div>
-      <strong>LƯU Ý QUAN TRỌNG:</strong> Do không có đề thi/đề cương cho trước, câu hỏi và thứ tự đáp án có thể không trùng khớp 100% với đề thi ngày mai, nhưng toàn bộ kiến thức dưới đây là <strong>bản tổng hợp đầy đủ nhất từ Bài 2 tới Bài 5</strong> trong tập của bạn!
-    </div>
-  </div>
-
-  <div class="exam-header">
-    <h1>ĐỀ CƯƠNG ÔN TẬP GIỮA KÌ 1 - MÔN LỊCH SỬ</h1>
-    <p>Phạm vi: Bài 2, Bài 3, Bài 4, Bài 5 (Bám sát 100% nội dung ghi chép trong tập)</p>
-  </div>
-
-  <!-- Bộ lọc bài -->
-  <div class="filter-bar">
-    <button class="filter-chip active" onclick="filterByLesson('all', this)">Tất cả đề cương (Bài 2 → Bài 5)</button>
-    <button class="filter-chip" onclick="filterByLesson('bai2', this)">Bài 2: Châu Âu & Nước Mỹ</button>
-    <button class="filter-chip" onclick="filterByLesson('bai3', this)">Bài 3: Châu Á (1918-1945)</button>
-    <button class="filter-chip" onclick="filterByLesson('bai4', this)">Bài 4: Chiến tranh thế giới thứ 2</button>
-    <button class="filter-chip" onclick="filterByLesson('bai5', this)">Bài 5: Việt Nam (1918-1930)</button>
-  </div>
-
-  <!-- ==================== I. TRẮC NGHIỆM ==================== -->
-  <div class="roman-title">
-    <span>I. TRẮC NGHIỆM KHÁCH QUAN (48 CÂU)</span>
-    <span id="progressText" style="font-size:0.85rem; font-weight:700;">Đã chọn: 0/48</span>
-  </div>
-
-  <div id="mcqList"></div>
-
-  <!-- ==================== II. TỰ LUẬN (CÓ HOẠT ẢNH & MẸO HỌC THUỘC) ==================== -->
-  <div class="roman-title" style="background: linear-gradient(90deg, #d97706 0%, #1e293b 100%);">
-    <span>II. TỰ LUẬN TRỌNG TÂM & MẸO HỌC THUỘC NHANH (8 CÂU)</span>
-    <span style="font-size:0.82rem;">Có hoạt ảnh & mẹo nhớ</span>
-  </div>
-
-  <div id="essayList">
-
-    <!-- Câu Tự luận 1 (Bài 2) -->
-    <div class="essay-card" data-lesson="bai2">
-      <div class="essay-q">Câu 1 (Bài 2): Trình bày nguyên nhân, biểu hiện của cuộc đại suy thoái kinh tế (1929 - 1933) và cách ứng phó của các nước tư bản?</div>
-      <div class="essay-body">
-        <div class="essay-ans">
-          <ul>
-            <li><strong>Nguyên nhân:</strong> Trong những năm 1924 - 1929, kinh tế tư bản phát triển mạnh, <span class="hl">sản xuất tăng ồ ạt</span> nhưng nhu cầu và sức mua của thị trường không tăng tương ứng → làm cho <span class="hl-green">hàng hóa trở nên ế thừa</span> dẫn tới suy thoái trong sản xuất.</li>
-            <li><strong>Biểu hiện:</strong> Bùng nổ vào <span class="hl">tháng 10/1929 ở Mỹ</span> (bắt đầu từ lĩnh vực tài chính), sau đó lan rộng ra toàn thế giới tư bản trên tất cả các lĩnh vực. Kéo dài gần 4 năm, <span class="hl-green">trầm trọng nhất là năm 1932</span>.</li>
-            <li><strong>Cách ứng phó của các nước:</strong>
-              <br>+ <strong>Anh, Pháp,...:</strong> Có <span class="hl">nhiều thuộc địa, vốn và thị trường</span> nên tiến hành những cuộc <span class="hl-green">cải cách kinh tế - xã hội</span>.
-              <br>+ <strong>Đức, I-ta-li-a, Nhật Bản:</strong> Không có hoặc có <span class="hl">ít thuộc địa</span>, thiếu vốn, thiếu nguyên liệu, thị trường nên đi theo con đường <span class="hl-green">phát xít hóa</span>, thiết lập chế độ độc tài, phát động chiến tranh phân chia lại thế giới.
-            </li>
-          </ul>
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800/80 bg-night-950 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+            <p>🔥 <strong>Bí Kíp Chống Liệt Đọc Hiểu Ngữ Văn</strong> • Chúc mày ngày mai vô phòng thi múa bút lụm trọn điểm Đọc Hiểu!</p>
+            <p class="text-amber-400 font-bold">Nhớ: Chép từ khóa vào dấu ngoặc kép "..."!</p>
         </div>
-        <div class="essay-anim-box">
-          <svg class="anim-svg" viewBox="0 0 64 64" fill="none">
-            <rect x="8" y="10" width="20" height="20" fill="#f59e0b" rx="3"/>
-            <rect x="36" y="10" width="20" height="20" fill="#f59e0b" rx="3"/>
-            <polyline points="8,38 28,44 56,56" stroke="#ef4444" stroke-width="5" stroke-linecap="round"/>
-            <circle cx="56" cy="56" r="5" fill="#ef4444"/>
-          </svg>
-          <div class="anim-caption">Hàng hóa ế thừa (10/1929)<br>Chia 2 ngả: Cải cách vs Phát xít</div>
-        </div>
-      </div>
-      <div class="memory-box">
-        💡 <strong>MẸO HỌC THUỘC CÂU 1:</strong> Nhớ công thức 3 bước: <strong>"Làm ồ ạt → Hàng ế thừa → Mỹ nổ 10/1929 (đỉnh 1932)"</strong>. Cách thoát: <strong>"Giàu thuộc địa (Anh, Pháp) thì CẢI CÁCH — Nghèo thuộc địa (Đức, Ý, Nhật) thì PHÁT XÍT"</strong>.
-      </div>
-    </div>
+    </footer>
 
-    <!-- Câu Tự luận 2 (Bài 2) -->
-    <div class="essay-card" data-lesson="bai2">
-      <div class="essay-q">Câu 2 (Bài 2): Nêu nội dung và tác dụng của "Chính sách mới" cũng như chính sách đối ngoại của Tổng thống Ph. Ru-dơ-ven ở Mỹ (từ năm 1933)?</div>
-      <div class="essay-body">
-        <div class="essay-ans">
-          <ul>
-            <li><strong>Bối cảnh:</strong> Tháng 10/1929, đại suy thoái bùng nổ ở Mỹ từ <span class="hl">lĩnh vực tài chính</span> rồi lan sang các ngành khác.</li>
-            <li><strong>Nội dung "Chính sách mới" (Ph. Ru-dơ-ven):</strong> Thực hiện các biện pháp nhằm <span class="hl-green">giải quyết nạn thất nghiệp</span>, phục hồi sự phát triển của các ngành kinh tế - tài chính, <span class="hl-green">cải tổ hệ thống ngân hàng</span>, tạo thêm nhiều việc làm mới và ổn định tình hình xã hội.</li>
-            <li><strong>Tác dụng:</strong> <span class="hl">Cứu nguy cho chủ nghĩa tư bản Mỹ</span>, góp phần làm cho nước Mỹ <span class="hl-green">duy trì được chế độ dân chủ tư sản</span>, chính trị - xã hội dần ổn định.</li>
-            <li><strong>Về đối ngoại (từ năm 1933):</strong> Công nhận và <span class="hl">đặt quan hệ ngoại giao với Liên Xô</span>; thực hiện chính sách <span class="hl-green">"láng giềng thân thiện"</span> đối với các nước Mỹ La-tinh (thay cho học thuyết Mơn-rô trước đó).</li>
-          </ul>
-        </div>
-        <div class="essay-anim-box">
-          <svg class="anim-svg" viewBox="0 0 64 64" fill="none">
-            <path d="M32 6 L54 16 V32 C54 46 32 58 32 58 C32 58 10 46 10 32 V16 L32 6 Z" fill="#16a34a" stroke="#bbf7d0" stroke-width="2"/>
-            <path d="M22 32 L29 39 L44 24" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
-          </svg>
-          <div class="anim-caption">Khiên "Chính sách mới"<br>Cứu nguy CNTB Mỹ (1933)</div>
-        </div>
-      </div>
-      <div class="memory-box">
-        💡 <strong>MẸO HỌC THUỘC CÂU 3:</strong> Nhớ trục thời gian xâm lược của Nhật: <strong>"1927 Tấu trình Ta-na-ca → 9/1931 Đông Bắc TQ (Lò lửa) → 7/1937 Toàn TQ → 9/1940 Đông Dương → 12/1941 Trân Châu cảng → 15/8/1945 Đầu hàng"</strong>.
-      </div>
-    </div>
+    <!-- =========================================================================
+         JAVASCRIPT LOGIC (TỐC ĐỘ TỨC THÌ - ZERO LAG)
+         ========================================================================= -->
+    <script>
+        // -------------------------------------------------------------------------
+        // 1. DỮ LIỆU 9 BIỆN PHÁP TU TỪ (GIỮ NGUYÊN 100% NỘI DUNG BẮT BUỘC)
+        // -------------------------------------------------------------------------
+        const rhetoricData = [
+            {
+                id: 1,
+                name: "1. So sánh",
+                group: "hinhanh",
+                badge: "Dễ ăn nhất",
+                badgeColor: "bg-amber-400/20 text-amber-300 border-amber-400/40",
+                signHtml: `Có từ nối <span class="kw-highlight">"như, là, tựa như, giống như, bao nhiêu... bấy nhiêu, hơn, kém"</span>.`,
+                exampleHtml: `VD: "Trẻ em <span class="kw-highlight">như</span> búp trên cành."`,
+                buddyTip: "Cứ tia thấy chữ 'như', 'tựa như', 'là' nối 2 vế A và B là khoanh ngay So sánh không cần nghĩ nhiều!",
+                keywords: "so sánh như là tựa như giống như bao nhiêu bấy nhiêu hơn kém trẻ em như búp trên cành"
+            },
+            {
+                id: 2,
+                name: "2. Nhân hóa",
+                group: "hinhanh",
+                badge: "Tần suất 90%",
+                badgeColor: "bg-emerald-400/20 text-emerald-300 border-emerald-400/40",
+                signHtml: `Dùng từ của con người để tả/gọi đồ vật, con vật, cây cối (<span class="kw-highlight">ông, bà, chị, buồn, vui, nhớ, thì thầm, dang tay...</span>).`,
+                exampleHtml: `VD: "<span class="kw-highlight">Ông</span> mặt trời <span class="kw-highlight">thức dậy</span> / Hàng cây <span class="kw-highlight">đứng trầm ngâm</span>."`,
+                buddyTip: "Cây cối, mây gió, mặt trời mà biết 'buồn, vui, thức dậy, trầm ngâm, thì thầm' như người thì 100% là Nhân hóa!",
+                keywords: "nhân hóa ông bà chị buồn vui nhớ thì thầm dang tay ông mặt trời thức dậy hàng cây đứng trầm ngâm"
+            },
+            {
+                id: 3,
+                name: "3. Ẩn dụ",
+                group: "hinhanh",
+                badge: "Hay lừa nhất",
+                badgeColor: "bg-rose-400/20 text-rose-300 border-rose-400/40",
+                signHtml: `Gọi sự vật A bằng tên sự vật B vì có <span class="kw-highlight">nét giống nhau</span> (<span class="kw-highlight">So sánh ngầm, ẩn đi từ "như"</span>).`,
+                exampleHtml: `VD: "Ngày ngày <span class="kw-highlight">Mặt Trời</span> (ẩn dụ chỉ Bác Hồ) đi qua trên lăng."`,
+                buddyTip: "Bác Hồ rực rỡ, ấm áp GIỐNG NHƯ Mặt Trời, nhưng tác giả giấu chữ 'như' đi, gọi thẳng Bác là Mặt Trời ➔ Ẩn dụ!",
+                keywords: "ẩn dụ nét giống nhau so sánh ngầm ẩn đi từ như ngày ngày mặt trời bác hồ đi qua trên lăng"
+            },
+            {
+                id: 4,
+                name: "4. Hoán dụ",
+                group: "hinhanh",
+                badge: "Dễ nhầm với Ẩn dụ",
+                badgeColor: "bg-sky-400/20 text-sky-300 border-sky-400/40",
+                signHtml: `Gọi A bằng B vì <span class="kw-highlight">đi liền với nhau / gần gũi nhau</span> (Bộ phận - toàn thể, <span class="kw-highlight">áo quần chỉ người</span>, vật chứa - vật bị chứa).`,
+                exampleHtml: `VD: "<span class="kw-highlight">Áo chàm</span> (chỉ người dân Việt Bắc) đưa buổi phân li."`,
+                buddyTip: "Cái áo chàm mặc trên người dân Việt Bắc (đi liền với nhau chứ không giống nhau). Thấy áo quần, bàn tay, đầu xanh, má hồng, trái đất chỉ người ➔ Hoán dụ!",
+                keywords: "hoán dụ đi liền với nhau gần gũi bộ phận toàn thể áo quần chỉ người áo chàm đưa buổi phân li việt bắc"
+            },
+            {
+                id: 5,
+                name: "5. Điệp ngữ (Điệp từ)",
+                group: "nhipdieu",
+                badge: "Nhìn phát thấy liền",
+                badgeColor: "bg-amber-400/20 text-amber-300 border-amber-400/40",
+                signHtml: `<span class="kw-highlight">Lặp đi lặp lại</span> 1 từ, cụm từ hoặc cấu trúc câu nhiều lần để nhấn mạnh.`,
+                exampleHtml: `VD: "<span class="kw-highlight">Tre giữ</span> làng, <span class="kw-highlight">tre giữ</span> nước, <span class="kw-highlight">tre giữ</span> mái nhà tranh..."`,
+                buddyTip: "Đề thơ hay văn xuôi mà thấy 1 chữ hoặc 1 cụm từ xuất hiện 2-3 lần liên tiếp trở lên thì ghi ngay Điệp ngữ!",
+                keywords: "điệp ngữ điệp từ lặp đi lặp lại nhấn mạnh tre giữ làng tre giữ nước tre giữ mái nhà tranh"
+            },
+            {
+                id: 6,
+                name: "6. Liệt kê",
+                group: "nhipdieu",
+                badge: "Đếm dấu phẩy",
+                badgeColor: "bg-emerald-400/20 text-emerald-300 border-emerald-400/40",
+                signHtml: `Kể ra <span class="kw-highlight">hàng loạt từ cùng loại nối tiếp nhau</span> (<span class="kw-highlight">nhiều dấu phẩy</span>).`,
+                exampleHtml: `VD: "Tinh thần yêu nước có khi được trưng bày <span class="kw-highlight">trong tủ kính, trong bình pha lê...</span>"`,
+                buddyTip: "Cứ thấy một dây 3-4 thứ trở lên ngăn cách bằng dấu phẩy (,) hoặc dấu chấm phẩy (;) thì chốt Liệt kê!",
+                keywords: "liệt kê hàng loạt từ cùng loại nhiều dấu phẩy trong tủ kính trong bình pha lê"
+            },
+            {
+                id: 7,
+                name: "7. Câu hỏi tu từ",
+                group: "dacbiet",
+                badge: "Soi dấu ?",
+                badgeColor: "bg-purple-400/20 text-purple-300 border-purple-400/40",
+                signHtml: `Có <span class="kw-highlight">dấu chấm hỏi (?) cuối câu</span> nhưng không phải để hỏi thông tin, mà để <span class="kw-highlight">xoáy sâu cảm xúc hoặc khẳng định</span>.`,
+                exampleHtml: `VD: "Sao anh không về chơi thôn Vĩ<span class="kw-highlight">?</span>"`,
+                buddyTip: "Cuối dòng thơ có dấu chấm hỏi (?) mà người viết tự hỏi lòng mình để bộc lộ nỗi nhớ, sự trăn trở ➔ Câu hỏi tu từ!",
+                keywords: "câu hỏi tu từ dấu chấm hỏi ? xoáy sâu cảm xúc khẳng định sao anh không về chơi thôn vĩ"
+            },
+            {
+                id: 8,
+                name: "8. Nói quá",
+                group: "dacbiet",
+                badge: "Thổi phồng",
+                badgeColor: "bg-orange-400/20 text-orange-300 border-orange-400/40",
+                signHtml: `<span class="kw-highlight">Phóng đại</span> quy mô, tính chất lên gấp nhiều lần sự thật.`,
+                exampleHtml: `VD: "Đẹp <span class="kw-highlight">nghiêng nước nghiêng thành</span> / Nghĩ <span class="kw-highlight">nát óc</span>."`,
+                buddyTip: "Làm gì có ai nghĩ mà 'nát óc' hay khóc 'cạn biển Đông' ngoài đời thật? Nói lố lên để gây ấn tượng mạnh chính là Nói quá!",
+                keywords: "nói quá phóng đại quy mô gấp nhiều lần đẹp nghiêng nước nghiêng thành nghĩ nát óc"
+            },
+            {
+                id: 9,
+                name: "9. Nói giảm nói tránh",
+                group: "dacbiet",
+                badge: "Tinh tế",
+                badgeColor: "bg-teal-400/20 text-teal-300 border-teal-400/40",
+                signHtml: `Dùng <span class="kw-highlight">từ nhẹ nhàng tránh đau buồn, thô tục</span> (thường nói về <span class="kw-highlight">cái chết</span>).`,
+                exampleHtml: `VD: "Bác đã <span class="kw-highlight">đi</span> rồi sao Bác ơi! (<span class="kw-highlight">Đi = mất/qua đời</span>)."`,
+                buddyTip: "Thay vì nói 'chết', tác giả dùng 'ra đi, nhắm mắt xuôi tay, yên nghỉ, về với đất mẹ' để giảm nỗi đau thương ➔ Nói giảm nói tránh!",
+                keywords: "nói giảm nói tránh nhẹ nhàng tránh đau buồn cái chết bác đã đi rồi sao bác ơi mất qua đời"
+            }
+        ];
 
-    <!-- Câu Tự luận 3 (Bài 3) -->
-    <div class="essay-card" data-lesson="bai3">
-      <div class="essay-q">Câu 3 (Bài 3): Vì sao Nhật Bản tiến hành quân sự hóa bộ máy nhà nước trong những năm 1933 - 1939? Nêu các cuộc xâm lược của Nhật Bản từ 1931 đến 1945?</div>
-      <div class="essay-body">
-        <div class="essay-ans">
-          <ul>
-            <li><strong>Nguyên nhân quân sự hóa:</strong> Cuộc đại suy thoái (1929 - 1933) giáng đòn nặng nề vào kinh tế Nhật Bản (năm 1931 công nghiệp giảm <span class="hl">32,5%</span>, ngoại thương giảm <span class="hl">80%</span>, <span class="hl">3 triệu</span> người thất nghiệp, gần <span class="hl">1.000</span> cuộc bãi công). Để thoát khỏi đại suy thoái, Chính phủ Nhật tăng cường <span class="hl-green">quân sự hóa bộ máy nhà nước</span>, gây chiến tranh xâm lược, bành trướng ra bên ngoài.</li>
-            <li><strong>Quá trình xâm lược bành trướng:</strong>
-              <br>+ Ngay từ năm <span class="hl">1927</span>, Thủ tướng <span class="hl">Ta-na-ca</span> đệ trình bản Tấu trình đề ra kế hoạch xâm lược và thống trị thế giới.
-              <br>+ <span class="hl-green">Tháng 9/1931:</span> Xâm chiếm vùng <span class="hl">Đông Bắc Trung Quốc</span>, đánh dấu hình thành <strong>"lò lửa chiến tranh"</strong> ở châu Á - Thái Bình Dương.
-              <br>+ <span class="hl">Tháng 7/1937:</span> Mở rộng chiến tranh thôn tính toàn bộ Trung Quốc.
-              <br>+ <span class="hl">Tháng 9/1940:</span> Kéo vào Đông Dương. <span class="hl">Tháng 12/1941:</span> Tấn công hạm đội Mỹ ở Trân Châu cảng, xâm lược Đông Nam Á. Ngày <span class="hl-green">15/8/1945</span> đầu hàng không điều kiện.
-            </li>
-          </ul>
-        </div>
-        <div class="essay-anim-box">
-          <svg class="anim-svg" viewBox="0 0 64 64" fill="none">
-            <circle cx="32" cy="36" r="18" fill="#ef4444"/>
-            <path d="M32 8 C22 20 18 28 32 42 C46 28 42 20 32 8 Z" fill="#f59e0b"/>
-          </svg>
-          <div class="anim-caption">Tháng 9/1931: Đông Bắc TQ<br>"Lò lửa chiến tranh" Châu Á</div>
-        </div>
-      </div>
-      <div class="memory-box">
-        💡 <strong>MẸO HỌC THUỘC CÂU 3:</strong> Nhớ trục thời gian xâm lược của Nhật: <strong>"1927 Tấu trình Ta-na-ca $\rightarrow$ 9/1931 Đông Bắc TQ (Lò lửa) $\rightarrow$ 7/1937 Toàn TQ $\rightarrow$ 9/1940 Đông Dương $\rightarrow$ 12/1941 Trân Châu cảng $\rightarrow$ 15/8/1945 Đầu hàng"</strong>.
-      </div>
-    </div>
+        let currentRhetoricGroup = 'all';
+        let highlightEnabled = true;
 
-    <!-- Câu Tự luận 4 (Bài 3) -->
-    <div class="essay-card" data-lesson="bai3">
-      <div class="essay-q">Câu 4 (Bài 3): Khái quát phong trào đấu tranh giành độc lập dân tộc ở châu Á và Đông Nam Á (1918 - 1945)?</div>
-      <div class="essay-body">
-        <div class="essay-ans">
-          <ul>
-            <li><strong>Hai khuynh hướng chính ở châu Á:</strong>
-              <br>+ Khuynh hướng <span class="hl-green">dân chủ tư sản</span>: Tiêu biểu là <span class="hl">Ấn Độ, In-đô-nê-xi-a</span>,... (Ở Ấn Độ có Đảng Quốc đại do <span class="hl">M. Gan-di</span> đứng đầu, tẩy chay hàng Anh).
-              <br>+ Khuynh hướng <span class="hl-green">vô sản</span>: Tiêu biểu là <span class="hl">Trung Quốc, Việt Nam</span>,... (Ở Trung Quốc có phong trào Ngũ Tứ 4/5/1919, lập ĐCS TQ 7/1921).
-            </li>
-            <li><strong>Ở Đông Nam Á (1919 - 1939):</strong>
-              <br>+ <em>Phong trào vô sản:</em> Khởi nghĩa tại <span class="hl">Gia-va và Xu-ma-tơ-ra (1926 - 1927)</span> ở In-đô-nê-xi-a; cao trào <span class="hl">Xô viết Nghệ - Tĩnh (1930 - 1931)</span> ở Việt Nam.
-              <br>+ <em>Phong trào dân chủ tư sản:</em> Ra đời <span class="hl">Đảng Dân tộc</span> (In-đô-nê-xi-a), <span class="hl">Phong trào Tha-kin</span> (Miến Điện), <span class="hl">Liên minh Thanh niên Ma-lay-a</span> (Mã Lai).
-            </li>
-            <li><strong>Giai đoạn 1940 - 1945:</strong> Năm 1945, lợi dụng thời cơ Nhật đầu hàng Đồng minh, một số nước ĐNÁ đã giành được độc lập.</li>
-          </ul>
-        </div>
-        <div class="essay-anim-box">
-          <svg class="anim-svg" viewBox="0 0 64 64" fill="none">
-            <path d="M12 48 L28 16 L40 36 L52 20" stroke="#38bdf8" stroke-width="5" stroke-linecap="round"/>
-            <circle cx="28" cy="16" r="5" fill="#fde047"/>
-            <circle cx="52" cy="20" r="5" fill="#22c55e"/>
-          </svg>
-          <div class="anim-caption">2 Ngọn cờ Châu Á:<br>Dân chủ tư sản & Vô sản</div>
-        </div>
-      </div>
-      <div class="memory-box">
-        💡 <strong>MẸO HỌC THUỘC CÂU 4:</strong> Nhớ cặp đối xứng: <strong>"Tư sản = Ấn + In | Vô sản = Trung + Việt"</strong>. Ở Đông Nam Á: <strong>"Vô sản nổi dậy ở Gia-va (In-đô) & Nghệ-Tĩnh (VN) | Tư sản lập đảng Tha-kin (Miến Điện) & Ma-lay-a (Mã Lai)"</strong>.
-      </div>
-    </div>
+        // -------------------------------------------------------------------------
+        // 2. RENDER BẢNG 9 BIỆN PHÁP TU TỪ & TÌM KIẾM TỨC THÌ
+        // -------------------------------------------------------------------------
+        function renderRhetoricCards() {
+            const grid = document.getElementById('rhetoricGrid');
+            const query = (document.getElementById('rhetoricSearch').value || '').trim().toLowerCase();
+            const clearBtn = document.getElementById('clearSearchBtn');
+            
+            if (query.length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
 
-    <!-- Câu Tự luận 5 (Bài 4) -->
-    <div class="essay-card" data-lesson="bai4">
-      <div class="essay-q">Câu 5 (Bài 4): Trình bày nguyên nhân dẫn tới Chiến tranh thế giới thứ hai (1939 - 1945) và các mốc diễn biến chính?</div>
-      <div class="essay-body">
-        <div class="essay-ans">
-          <ul>
-            <li><strong>Nguyên nhân:</strong>
-              <br>+ Mâu thuẫn về <span class="hl">thị trường và thuộc địa</span> tiếp tục nảy sinh sau CTTG 1.
-              <br>+ Đại suy thoái 1929 - 1933 dẫn tới hình thành chủ nghĩa phát xít ở <span class="hl">Đức, Nhật Bản, I-ta-li-a</span> (thủ phạm gây chiến).
-              <br>+ Hình thành 2 khối đế quốc đối địch: <span class="hl">khối tư bản dân chủ (Anh, Pháp, Mỹ)</span> và <span class="hl">khối phát xít (Đức, Ý, Nhật)</span>. Cả hai đều coi Liên Xô là kẻ thù nguy hiểm nhất.
-              <br>+ Anh, Pháp, Mỹ thực hiện chính sách <span class="hl-green">nhượng bộ phát xít</span> nhằm đẩy Đức chống Liên Xô.
-            </li>
-            <li><strong>Các mốc diễn biến chính:</strong>
-              <br>+ <strong>Giai đoạn I (1/9/1939 - 11/1942):</strong> <span class="hl">1/9/1939</span> Đức tấn công Ba Lan (3/9 Anh, Pháp tuyên chiến) → CTTG 2 bắt đầu; <span class="hl">22/6/1941</span> Đức đánh Liên Xô; <span class="hl">12/1941</span> Nhật đánh Trân Châu cảng (Mỹ); <span class="hl">1/1942</span> lập Mặt trận Đồng minh (Liên Xô, Mỹ, Anh).
-              <br>+ <strong>Giai đoạn II (11/1942 - 8/1945):</strong> <span class="hl-green">11/1942 - 2/1943</span> Liên Xô thắng trận <span class="hl-green">Xta-lin-grát</span> (tạo <strong>bước ngoặt</strong> chuyển từ phòng ngự sang phản công); <span class="hl">6/1944</span> đổ bộ Noóc-măng-đi (mở mặt trận thứ 2 ở Tây Âu); <span class="hl-green">9/5/1945</span> Đức đầu hàng; <span class="hl">6 và 9/8/1945</span> Mỹ ném bom nguyên tử xuống Nhật; <span class="hl">8/8/1945</span> Liên Xô đánh Nhật ở Đông Bắc TQ; <span class="hl-green">15/8/1945</span> Nhật đầu hàng → CTTG 2 kết thúc.
-            </li>
-          </ul>
-        </div>
-        <div class="essay-anim-box">
-          <svg class="anim-svg" viewBox="0 0 64 64" fill="none">
-            <polygon points="32,6 40,24 58,24 44,36 50,54 32,42 14,54 20,36 6,24 24,24" fill="#ef4444" stroke="#fde047" stroke-width="2"/>
-          </svg>
-          <div class="anim-caption">Bước ngoặt Xta-lin-grát<br>(11/1942 - 2/1943)</div>
-        </div>
-      </div>
-      <div class="memory-box">
-        💡 <strong>MẸO HỌC THUỘC CÂU 5:</strong> Nhớ câu thần chú 7 mốc: <strong>"39 Ba Lan → 41 Liên Xô & Trân Châu → 42 Đồng minh → 43 Xta-lin-grát (Bước ngoặt) → 44 Noóc-măng-đi → Tháng 5 Đức hàng → Tháng 8 Nhật hàng"</strong>.
-      </div>
-    </div>
+            const filtered = rhetoricData.filter(item => {
+                const matchGroup = currentRhetoricGroup === 'all' || item.group === currentRhetoricGroup;
+                const matchQuery = !query || 
+                    item.name.toLowerCase().includes(query) ||
+                    item.keywords.toLowerCase().includes(query) ||
+                    item.signHtml.toLowerCase().includes(query) ||
+                    item.exampleHtml.toLowerCase().includes(query);
+                return matchGroup && matchQuery;
+            });
 
-    <!-- Câu Tự luận 6 (Bài 4) -->
-    <div class="essay-card" data-lesson="bai4">
-      <div class="essay-q">Câu 6 (Bài 4): Nêu hậu quả, nguyên nhân thắng lợi, ý nghĩa lịch sử và vai trò của Liên Xô trong Chiến tranh thế giới thứ hai?</div>
-      <div class="essay-body">
-        <div class="essay-ans">
-          <ul>
-            <li><strong>Hậu quả nặng nề:</strong> Chủ nghĩa phát xít sụp đổ hoàn toàn. <span class="hl">76</span> nước tham chiến, <span class="hl">110 triệu</span> người nhập ngũ, <span class="hl-green">60 triệu người chết</span>, <span class="hl-green">90 triệu người bị thương</span>, thiệt hại vật chất <span class="hl">4.000 tỉ USD</span>, chi phí quân sự trực tiếp <span class="hl">1.384 tỉ USD</span>.</li>
-            <li><strong>Nguyên nhân thắng lợi:</strong> Phe phát xít là chiến tranh <span class="hl">phi nghĩa</span>, phe Đồng minh và các dân tộc bị chiếm đóng là chiến tranh <span class="hl-green">chính nghĩa</span>; sự đoàn kết kiên cường của nhân loại tiến bộ và tinh thần chiến đấu của Hồng quân Liên Xô.</li>
-            <li><strong>Ý nghĩa lịch sử:</strong> Giúp nhân loại thoát khỏi thảm họa phát xít; dẫn tới sự ra đời của <span class="hl-green">hệ thống các nước xã hội chủ nghĩa</span>; tương quan giữa các nước TBCN thay đổi; tạo điều kiện cho phong trào giải phóng dân tộc phát triển.</li>
-            <li><strong>Vai trò của Liên Xô và Đồng minh:</strong> Liên Xô, Mỹ, Anh là ba trụ cột quyết định thắng lợi, trong đó <span class="hl-green">Liên Xô có vai trò quyết định nhất</span>.</li>
-          </ul>
-        </div>
-        <div class="essay-anim-box">
-          <svg class="anim-svg" viewBox="0 0 64 64" fill="none">
-            <circle cx="32" cy="32" r="24" stroke="#22c55e" stroke-width="4"/>
-            <path d="M18 32 H46 M32 18 V46" stroke="#38bdf8" stroke-width="3"/>
-          </svg>
-          <div class="anim-caption">Liên Xô giữ vai trò<br>QUYẾT ĐỊNH NHẤT</div>
-        </div>
-      </div>
-      <div class="memory-box">
-        💡 <strong>MẸO HỌC THUỘC CÂU 6:</strong> Nhớ dãy số hậu quả: <strong>"76 nước - 110 lính - 60 chết - 90 thương - 4.000 tỉ"</strong>. Vai trò: <strong>"3 trụ cột Xô - Mỹ - Anh, nhưng LIÊN XÔ quyết định nhất"</strong>.
-      </div>
-    </div>
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full p-8 rounded-2xl bg-slate-900 border border-slate-800 text-center space-y-2">
+                        <p class="text-lg font-bold text-amber-400">Ủa mày gõ chữ gì lạ vậy, không khớp biện pháp nào hết!</p>
+                        <p class="text-sm text-slate-400">Thử gõ từ khóa ngắn thôi như: "như", "Mặt Trời", "áo chàm", "?", "đi"...</p>
+                    </div>
+                `;
+                return;
+            }
 
-    <!-- Câu Tự luận 7 (Bài 5) -->
-    <div class="essay-card" data-lesson="bai5">
-      <div class="essay-q">Câu 7 (Bài 5): So sánh hoạt động đấu tranh của giai cấp tư sản và tầng lớp tiểu tư sản ở Việt Nam trong những năm 1918 - 1930?</div>
-      <div class="essay-body">
-        <div class="essay-ans">
-          <ul>
-            <li><strong>Phong trào của giai cấp tư sản:</strong>
-              <br>+ <em>Mục tiêu:</em> Chống sự cạnh tranh, chèn ép của tư sản Hoa kiều và tư sản Pháp; đòi một số quyền tự do, dân chủ, tham gia bộ máy chính quyền.
-              <br>+ <em>Hoạt động tiêu biểu:</em> <span class="hl-green">Tẩy chay tư sản Hoa kiều</span>, vận động người Việt dùng hàng Việt (<span class="hl">1919</span>); <span class="hl-green">Chống độc quyền cảng Sài Gòn</span> (<span class="hl">1923</span>); thành lập <span class="hl">Đảng Lập hiến</span> tại Sài Gòn (1923); lập các tờ báo: <em>Thực nghiệp dân báo, Diễn đàn bản xứ, Tiếng vang An Nam</em>.
-            </li>
-            <li><strong>Phong trào của tầng lớp tiểu tư sản:</strong>
-              <br>+ <em>Mục tiêu:</em> Tuyên truyền tư tưởng dân tộc, dân chủ, thức tỉnh và cổ vũ tinh thần yêu nước.
-              <br>+ <em>Hoạt động tiêu biểu:</em> Lập nhà xuất bản tiến bộ (<em>Cường học thư xã, Quan hải tùng thư, Nam Đồng thư xã</em>); ra báo (<em>Chuông rạn, An Nam trẻ</em>); lập tổ chức sơ khai (<em>Hội Phục Việt, Đảng Thanh niên,...</em>); đấu tranh đòi thả <span class="hl-green">Phan Bội Châu (1925)</span>, <span class="hl">Nguyễn An Ninh (1926)</span>, tổ chức đám tang <span class="hl-green">Phan Châu Trinh (1926)</span>.
-            </li>
-          </ul>
-        </div>
-        <div class="essay-anim-box">
-          <svg class="anim-svg" viewBox="0 0 64 64" fill="none">
-            <rect x="10" y="14" width="44" height="36" rx="4" fill="#1e293b" stroke="#f59e0b" stroke-width="3"/>
-            <line x1="18" y1="26" x2="46" y2="26" stroke="#fde047" stroke-width="3"/>
-            <line x1="18" y1="36" x2="38" y2="36" stroke="#22c55e" stroke-width="3"/>
-          </svg>
-          <div class="anim-caption">Tư sản: Kinh tế & Đảng Lập hiến<br>Tiểu tư sản: Báo chí & Biểu tình</div>
-        </div>
-      </div>
-      <div class="memory-box">
-        💡 <strong>MẸO HỌC THUỘC CÂU 7:</strong> 
-        <br>• <strong>Tư sản</strong> gắn với tiền bạc/buôn bán: <strong>"Hoa kiều (1919) - Cảng Sài Gòn (1923) - Đảng Lập hiến - Thực nghiệp/Diễn đàn/Tiếng vang"</strong>.
-        <br>• <strong>Tiểu tư sản</strong> gắn với sách báo/trí thức: <strong>"Thư xã - Chuông rạn/An Nam trẻ - Thả cụ Bội Châu (1925) - Tang cụ Châu Trinh (1926)"</strong>.
-      </div>
-    </div>
+            grid.innerHTML = filtered.map(item => `
+                <div class="rounded-2xl bg-slate-900 border border-slate-800 hover:border-amber-400/60 p-5 flex flex-col justify-between transition shadow-lg group">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between gap-2">
+                            <h3 class="text-lg font-black text-white group-hover:text-amber-300 transition">${item.name}</h3>
+                            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold border ${item.badgeColor}">
+                                ${item.badge}
+                            </span>
+                        </div>
 
-    <!-- Câu Tự luận 8 (Bài 5) -->
-    <div class="essay-card" data-lesson="bai5">
-      <div class="essay-q">Câu 8 (Bài 5): Trình bày sự phát triển của phong trào công nhân Việt Nam (1919 - 1930) và sự ra đời của 3 tổ chức yêu nước cách mạng (1925 - 1928)?</div>
-      <div class="essay-body">
-        <div class="essay-ans">
-          <ul>
-            <li><strong>Phong trào công nhân:</strong>
-              <br>+ <em>Giai đoạn 1919 - 1925:</em> Đấu tranh đòi tăng lương, giảm giờ làm, bắt đầu dùng hình thức bãi công (mang tính tự phát).
-              <br>+ <em>Giai đoạn 1925 - 1930:</em> <span class="hl-green">Tháng 8/1925</span>, cuộc bãi công của <span class="hl-green">công nhân Ba Son (Sài Gòn)</span> thắng lợi, đánh dấu bước chuyển từ đấu tranh <strong>"tự phát" sang "tự giác"</strong>. Từ 1926, đấu tranh có tổ chức, liên kết nhiều ngành, kết hợp mục tiêu kinh tế với chính trị (tiêu biểu: mỏ than <span class="hl">Mạo Khê</span>, xe lửa <span class="hl">Trường Thi</span>, ô tô <span class="hl">A-vi-a</span>, cao su <span class="hl">Phú Riềng</span>).
-            </li>
-            <li><strong>Sự ra đời của 3 tổ chức cách mạng:</strong>
-              <br>1. <span class="hl-green">Hội Việt Nam Cách mạng Thanh niên (tháng 6/1925):</span> Do <span class="hl">Nguyễn Ái Quốc</span> thành lập tại Quảng Châu (Trung Quốc) từ hạt nhân là tổ chức <span class="hl">Tâm tâm xã</span>.
-              <br>2. <span class="hl-green">Việt Nam Quốc dân Đảng (tháng 12/1927):</span> Hạt nhân là <span class="hl">Nam Đồng thư xã</span> (Nguyễn Thái Học, Phó Đức Chính).
-              <br>3. <span class="hl-green">Tân Việt Cách mạng Đảng (tháng 7/1928):</span> Tiền thân là <span class="hl">Hội Phục Việt</span>.
-            </li>
-          </ul>
-        </div>
-        <div class="essay-anim-box">
-          <svg class="anim-svg" viewBox="0 0 64 64" fill="none">
-            <path d="M10 44 L18 28 H46 L54 44 H10 Z" fill="#22c55e"/>
-            <rect x="24" y="16" width="16" height="12" fill="#fde047"/>
-          </svg>
-          <div class="anim-caption">Ba Son (8/1925): Tự phát → Tự giác<br>& 3 Tổ chức CM (1925-1928)</div>
-        </div>
-      </div>
-      <div class="memory-box">
-        💡 <strong>MẸO HỌC THUỘC CÂU 8:</strong> 
-        <br>• Công nhân: <strong>"Ba Son 8/1925 = Tự phát sang Tự giác | Mạo Khê - Trường Thi - A-vi-a - Phú Riềng"</strong>.
-        <br>• 3 Tổ chức nhớ theo cặp gốc: <strong>"Thanh niên (6/1925) gốc Tâm tâm xã — Quốc dân Đảng (12/1927) gốc Nam Đồng — Tân Việt (7/1928) gốc Phục Việt"</strong>.
-      </div>
-    </div>
+                        <div class="p-3 rounded-xl bg-slate-950/90 border border-slate-800/90 text-sm text-slate-200 leading-relaxed">
+                            <span class="text-xs font-extrabold uppercase text-amber-400 block mb-1">🔍 Mẹo soi dấu hiệu:</span>
+                            ${item.signHtml}
+                        </div>
 
-  </div>
+                        <div class="p-3 rounded-xl bg-indigo-950/30 border border-indigo-500/20 text-sm text-slate-100 leading-relaxed">
+                            <span class="text-xs font-extrabold uppercase text-emerald-400 block mb-1">📌 Ví dụ chuẩn:</span>
+                            ${item.exampleHtml}
+                        </div>
+                    </div>
 
-</div>
+                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                        <span class="text-xs text-slate-400 italic line-clamp-2">💬 "${item.buddyTip}"</span>
+                        <button onclick="sendDeviceToBuilder('${item.name.replace(/^[0-9]+\.\s*/, '').split(' ')[0].toLowerCase() === 'điệp' ? 'điệp ngữ' : item.name.replace(/^[0-9]+\.\s*/, '').toLowerCase()}')" class="shrink-0 px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-amber-400 hover:text-slate-950 text-amber-300 font-bold text-xs transition" title="Đẩy xuống Máy Ghép Văn">
+                            Ghép văn ➔
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
 
-<script>
-const mcqData = [
-  // ==================== BÀI 2 (12 CÂU) ====================
-  {
-    id: 1, lesson: 'bai2',
-    q: 'Hai yếu tố bên ngoài và bối cảnh lịch sử nào đã dẫn đến phong trào cách mạng (1918 - 1923) bùng nổ ở hầu khắp các nước tư bản châu Âu?',
-    opts: [
-      'Cuộc đại suy thoái kinh tế thế giới và sự xuất hiện chủ nghĩa phát xít.',
-      'Hậu quả nặng nề của Chiến tranh thế giới thứ nhất và tác động của Cách mạng tháng Mười Nga năm 1917.',
-      'Chính sách mới của Tổng thống Mỹ Ph. Ru-dơ-ven và sự ra đời của Liên Hợp Quốc.',
-      'Sự sụp đổ của hệ thống thuộc địa Anh, Pháp và thắng lợi của Hồng quân Liên Xô.'
-    ],
-    ans: 1
-  },
-  {
-    id: 2, lesson: 'bai2',
-    q: 'Ngày 9/11/1918, công nhân và các tầng lớp nhân dân ở Béc-lin (Đức) nổi dậy đấu tranh đã đạt được kết quả gì và chính quyền sau đó thuộc về ai?',
-    opts: [
-      'Lật đổ chế độ quân chủ, nhưng sau đó chính quyền rơi vào tay giai cấp tư sản.',
-      'Lật đổ giai cấp tư sản, thiết lập ngay nhà nước chuyên chính vô sản trên toàn nước Đức.',
-      'Đưa Đảng Cộng sản Đức lên cầm quyền liên tục từ năm 1918 đến năm 1933.',
-      'Buộc phát xít Đức phải ký văn kiện đầu hàng quân Đồng minh không điều kiện.'
-    ],
-    ans: 0
-  },
-  {
-    id: 3, lesson: 'bai2',
-    q: 'Đảng Cộng sản Đức được thành lập vào thời gian nào?',
-    opts: [
-      'Tháng 11 năm 1917.',
-      'Tháng 12 năm 1918.',
-      'Tháng 3 năm 1919.',
-      'Tháng 5 năm 1920.'
-    ],
-    ans: 1
-  },
-  {
-    id: 4, lesson: 'bai2',
-    q: 'Trong phong trào cách mạng 1918 - 1923 ở châu Âu, con số 6,5 triệu người bãi công (từ năm 1919 đến năm 1921) diễn ra tại quốc gia nào?',
-    opts: [
-      'Ở Pháp.',
-      'Ở Đức.',
-      'Ở Anh.',
-      'Ở I-ta-li-a.'
-    ],
-    ans: 2
-  },
-  {
-    id: 5, lesson: 'bai2',
-    q: 'Ở Pháp, cuộc tổng bãi công lớn nhất nổ ra nhân ngày Quốc tế Lao động (1/5/1920) đã lôi cuốn bao nhiêu người tham gia?',
-    opts: [
-      'Khoảng 276 nghìn người tham gia.',
-      'Hơn 1 triệu người tham gia.',
-      'Khoảng 3 triệu người tham gia.',
-      'Tới 6,5 triệu người tham gia.'
-    ],
-    ans: 1
-  },
-  {
-    id: 6, lesson: 'bai2',
-    q: 'Qua phong trào cách mạng 1918 - 1923 ở châu Âu, nhiều Đảng Cộng sản đã được thành lập theo đúng mốc thời gian nào dưới đây?',
-    opts: [
-      'ĐCS Hung-ga-ri (1918), ĐCS Anh (8/1920), ĐCS Pháp (12/1920), ĐCS I-ta-li-a (1/1921).',
-      'ĐCS Anh (1918), ĐCS Pháp (1919), ĐCS Hung-ga-ri (1920), ĐCS I-ta-li-a (1922).',
-      'ĐCS I-ta-li-a (1918), ĐCS Đức (1920), ĐCS Pháp (1921), ĐCS Anh (1923).',
-      'ĐCS Pháp (1918), ĐCS Anh (1919), ĐCS Đức (1920), ĐCS Hung-ga-ri (1921).'
-    ],
-    ans: 0
-  },
-  {
-    id: 7, lesson: 'bai2',
-    q: 'Quốc tế Cộng sản (còn gọi là Quốc tế thứ ba) được thành lập vào tháng 3/1919 tại đâu và gắn với hoạt động tích cực của ai?',
-    opts: [
-      'Tại Pa-ri (Pháp), gắn với hoạt động của Phan Châu Trinh.',
-      'Tại Mát-xcơ-va (Nga), gắn với hoạt động tích cực của V.I. Lê-nin và Đảng Bôn-sê-vích Nga.',
-      'Tại Béc-lin (Đức), gắn với hoạt động của giai cấp công nhân Đức.',
-      'Tại Oa-sinh-tơn (Mỹ), gắn với hoạt động của Tổng thống Ph. Ru-dơ-ven.'
-    ],
-    ans: 1
-  },
-  {
-    id: 8, lesson: 'bai2',
-    q: 'Trong thời gian tồn tại (1919 - 1943), Quốc tế Cộng sản đã tiến hành mấy kì đại hội và tự giải tán vào năm nào?',
-    opts: [
-      'Tiến hành 5 kì đại hội, tự giải tán năm 1939.',
-      'Tiến hành 7 kì đại hội, tự giải tán năm 1943.',
-      'Tiến hành 9 kì đại hội, tự giải tán năm 1945.',
-      'Tiến hành 10 kì đại hội, tự giải tán năm 1941.'
-    ],
-    ans: 1
-  },
-  {
-    id: 9, lesson: 'bai2',
-    q: 'Nguyên nhân dẫn đến cuộc đại suy thoái kinh tế (1929 - 1933) ở các nước tư bản chủ nghĩa là gì?',
-    opts: [
-      'Do sản xuất ồ ạt trong những năm 1924 - 1929 nhưng nhu cầu và sức mua không tăng tương ứng, làm hàng hóa ế thừa.',
-      'Do chiến tranh thế giới thứ hai bùng nổ làm toàn bộ nhà máy ở Mỹ và châu Âu bị phá hủy.',
-      'Do các nước tư bản thiếu hụt hàng hóa nghiêm trọng không đủ cung cấp cho thị trường.',
-      'Do Liên Xô áp đặt lệnh cấm vận thương mại đối với toàn bộ các nước tư bản châu Âu.'
-    ],
-    ans: 0
-  },
-  {
-    id: 10, lesson: 'bai2',
-    q: 'Cuộc đại suy thoái kinh tế (1929 - 1933) bùng nổ vào tháng 10/1929 tại đâu, bắt đầu từ lĩnh vực nào và trầm trọng nhất vào năm nào?',
-    opts: [
-      'Bùng nổ ở Anh, bắt đầu từ lĩnh vực công nghiệp, trầm trọng nhất năm 1931.',
-      'Bùng nổ ở Mỹ, bắt đầu từ lĩnh vực tài chính, trầm trọng nhất năm 1932.',
-      'Bùng nổ ở Đức, bắt đầu từ lĩnh vực nông nghiệp, trầm trọng nhất năm 1933.',
-      'Bùng nổ ở Nhật Bản, bắt đầu từ lĩnh vực thương nghiệp, trầm trọng nhất năm 1930.'
-    ],
-    ans: 1
-  },
-  {
-    id: 11, lesson: 'bai2',
-    q: 'Trong những năm 20 của thế kỉ XX, đảng nào liên tục nắm chính quyền ở Mỹ và thực hiện học thuyết gì đối với khu vực Mỹ La-tinh?',
-    opts: [
-      'Đảng Dân chủ nắm quyền, thực hiện chính sách "láng giềng thân thiện".',
-      'Đảng Cộng hòa nắm quyền, tiếp tục thực hiện học thuyết Mơn-rô (châu Mỹ của người châu Mỹ).',
-      'Đảng Lao động nắm quyền, thực hiện chính sách viện trợ quân sự cho Liên Xô.',
-      'Đảng Cộng sản Mỹ nắm quyền, xóa bỏ quyền tư hữu của giai cấp tư sản.'
-    ],
-    ans: 1
-  },
-  {
-    id: 12, lesson: 'bai2',
-    q: 'Từ năm 1933, Chính phủ của Tổng thống Mỹ Ph. Ru-dơ-ven đã thực hiện chính sách đối nội và đối ngoại nổi bật nào?',
-    opts: [
-      'Thực hiện "Chính sách mới" để cứu nguy CNTB Mỹ; đặt quan hệ ngoại giao với Liên Xô và thực hiện chính sách "láng giềng thân thiện" với Mỹ La-tinh.',
-      'Thực hiện phát xít hóa bộ máy nhà nước; cắt đứt quan hệ ngoại giao với Liên Xô và xâm lược Mỹ La-tinh.',
-      'Thực hiện học thuyết Mơn-rô; đàn áp phong trào công nhân và giải tán Quốc hội Mỹ.',
-      'Bãi bỏ chế độ dân chủ tư sản; liên minh quân sự với Đức, I-ta-li-a và Nhật Bản.'
-    ],
-    ans: 0
-  },
+        function filterRhetoricCards() {
+            renderRhetoricCards();
+        }
 
-  // ==================== BÀI 3 (12 CÂU) ====================
-  {
-    id: 13, lesson: 'bai3',
-    q: 'Nhờ hưởng lợi từ Chiến tranh thế giới thứ nhất, nền kinh tế Nhật Bản phát triển nhanh chóng sau chiến tranh nhưng chỉ kéo dài trong bao lâu?',
-    opts: [
-      'Chỉ kéo dài trong 12 tháng.',
-      'Chỉ kéo dài trong 18 tháng.',
-      'Chỉ kéo dài trong 24 tháng.',
-      'Chỉ kéo dài trong 36 tháng.'
-    ],
-    ans: 1
-  },
-  {
-    id: 14, lesson: 'bai3',
-    q: 'Đảng Cộng sản Nhật Bản được thành lập vào thời gian nào để trở thành lực lượng lãnh đạo phong trào công nhân?',
-    opts: [
-      'Tháng 7 năm 1921.',
-      'Tháng 7 năm 1922.',
-      'Tháng 9 năm 1931.',
-      'Tháng 7 năm 1937.'
-    ],
-    ans: 1
-  },
-  {
-    id: 15, lesson: 'bai3',
-    q: 'Từ năm 1927, sự kiện nào đã làm cho nền kinh tế Nhật Bản lâm vào khủng hoảng, suy thoái (trước cả đại suy thoái 1929)?',
-    opts: [
-      'Cuộc khủng hoảng tài chính ở Tô-ki-ô.',
-      'Thất bại trong cuộc tấn công Trân Châu cảng.',
-      'Sự sụp đổ của thị trường chứng khoán Luân Đôn.',
-      'Phong trào tẩy chay hàng hóa Nhật Bản ở Ấn Độ.'
-    ],
-    ans: 0
-  },
-  {
-    id: 16, lesson: 'bai3',
-    q: 'Dưới tác động của cuộc đại suy thoái kinh tế, năm 1931 (so với năm 1929), nền kinh tế - xã hội Nhật Bản chịu hậu quả như thế nào?',
-    opts: [
-      'Sản lượng công nghiệp giảm 32,5%, ngoại thương giảm 80%, khoảng 3 triệu người thất nghiệp, gần 1.000 cuộc bãi công.',
-      'Sản lượng công nghiệp giảm 80%, ngoại thương giảm 32,5%, có 276 cuộc bãi công.',
-      'Sản lượng nông nghiệp giảm 50%, có 6,5 triệu người thất nghiệp.',
-      'Ngoại thương tăng 32,5% nhưng có hơn 1 triệu công nhân bãi công.'
-    ],
-    ans: 0
-  },
-  {
-    id: 17, lesson: 'bai3',
-    q: 'Ngay từ năm 1927, ai đã đệ trình lên Nhật hoàng bản Tấu trình đề ra kế hoạch xâm lược và thống trị thế giới?',
-    opts: [
-      'Thủ tướng Ta-na-ca.',
-      'Lãnh tụ M. Gan-di.',
-      'Toàn quyền Méc-lanh.',
-      'Tổng thống Ph. Ru-dơ-ven.'
-    ],
-    ans: 0
-  },
-  {
-    id: 18, lesson: 'bai3',
-    q: 'Sự kiện nào vào tháng 9/1931 đã đánh dấu việc hình thành "lò lửa chiến tranh" ở châu Á - Thái Bình Dương?',
-    opts: [
-      'Quân Nhật kéo vào Đông Dương.',
-      'Nhật Bản xâm chiếm vùng Đông Bắc Trung Quốc.',
-      'Nhật Bản bất ngờ tấn công hạm đội Mỹ ở Trân Châu cảng.',
-      'Nhật Bản mở rộng chiến tranh thôn tính toàn bộ Trung Quốc.'
-    ],
-    ans: 1
-  },
-  {
-    id: 19, lesson: 'bai3',
-    q: 'Trong giai đoạn 1939 - 1945, quân phiệt Nhật Bản đã kéo vào Đông Dương và tấn công hạm đội Mỹ ở Trân Châu cảng vào những thời gian nào?',
-    opts: [
-      'Vào Đông Dương tháng 9/1939; tấn công Trân Châu cảng tháng 6/1941.',
-      'Vào Đông Dương tháng 9/1940; tấn công Trân Châu cảng tháng 12/1941.',
-      'Vào Đông Dương tháng 12/1941; tấn công Trân Châu cảng tháng 8/1945.',
-      'Vào Đông Dương tháng 9/1931; tấn công Trân Châu cảng tháng 7/1937.'
-    ],
-    ans: 1
-  },
-  {
-    id: 20, lesson: 'bai3',
-    q: 'Phong trào đấu tranh giành độc lập ở châu Á (1918 - 1945) diễn ra theo hai khuynh hướng chính nào (với các nước tiêu biểu tương ứng)?',
-    opts: [
-      'Khuynh hướng dân chủ tư sản (Ấn Độ, In-đô-nê-xi-a,...) và khuynh hướng vô sản (Trung Quốc, Việt Nam,...).',
-      'Khuynh hướng vô sản (Ấn Độ, Thổ Nhĩ Kỳ,...) và khuynh hướng dân chủ tư sản (Trung Quốc, Việt Nam,...).',
-      'Khuynh hướng phong kiến (Mông Cổ, Ấn Độ,...) và khuynh hướng phát xít (Nhật Bản, Trung Quốc,...).',
-      'Khuynh hướng cải cách (Việt Nam, Mã Lai,...) và khuynh hướng quân phiệt (Nhật Bản, Miến Điện,...).'
-    ],
-    ans: 0
-  },
-  {
-    id: 21, lesson: 'bai3',
-    q: 'Ở Ấn Độ, nhân dân đấu tranh đòi quyền độc lập, tẩy chay hàng hóa của Anh và phát triển kinh tế dân tộc dưới sự lãnh đạo của tổ chức và cá nhân nào?',
-    opts: [
-      'Đảng Dân tộc, đứng đầu là Xô-các-nô.',
-      'Đảng Quốc đại, đứng đầu là M. Gan-di.',
-      'Đảng Lập hiến, đứng đầu là Bùi Quang Chiêu.',
-      'Phong trào Tha-kin, đứng đầu là Ta-na-ca.'
-    ],
-    ans: 1
-  },
-  {
-    id: 22, lesson: 'bai3',
-    q: 'Phong trào giải phóng dân tộc ở Mông Cổ (1921 - 1924) và cuộc chiến tranh giải phóng dân tộc ở Thổ Nhĩ Kỳ (1919 - 1922) đã đưa đến kết quả lịch sử gì?',
-    opts: [
-      'Đưa đến sự ra đời của nước Cộng hòa Nhân dân Mông Cổ và sự thành lập nước Cộng hòa Thổ Nhĩ Kỳ.',
-      'Sáp nhập lãnh thổ Mông Cổ và Thổ Nhĩ Kỳ vào Liên bang Cộng hòa xã hội chủ nghĩa Xô viết.',
-      'Thiết lập chế độ quân chủ chuyên chế dưới sự bảo hộ của đế quốc Anh.',
-      'Buộc phát xít Nhật Bản phải bồi thường chiến phí và rút quân khỏi Tây Á.'
-    ],
-    ans: 0
-  },
-  {
-    id: 23, lesson: 'bai3',
-    q: 'Ở Trung Quốc, phong trào Ngũ Tứ nổ ra ở Bắc Kinh vào ngày nào và Đảng Cộng sản Trung Quốc được thành lập vào thời gian nào?',
-    opts: [
-      'Phong trào Ngũ Tứ ngày 4/5/1919; Đảng Cộng sản Trung Quốc thành lập tháng 7/1921.',
-      'Phong trào Ngũ Tứ ngày 1/5/1920; Đảng Cộng sản Trung Quốc thành lập tháng 7/1922.',
-      'Phong trào Ngũ Tứ ngày 9/11/1918; Đảng Cộng sản Trung Quốc thành lập tháng 3/1919.',
-      'Phong trào Ngũ Tứ ngày 4/5/1921; Đảng Cộng sản Trung Quốc thành lập tháng 7/1927.'
-    ],
-    ans: 0
-  },
-  {
-    id: 24, lesson: 'bai3',
-    q: 'Ở Đông Nam Á (1919 - 1939), hai cuộc đấu tranh tiêu biểu dưới sự lãnh đạo của Đảng Cộng sản và ba tổ chức tiêu biểu theo khuynh hướng dân chủ tư sản là gì?',
-    opts: [
-      'Vô sản: khởi nghĩa Gia-va, Xu-ma-tơ-ra (1926-1927 ở In-đô-nê-xi-a) và Xô viết Nghệ-Tĩnh (1930-1931 ở VN) | Dân chủ tư sản: Đảng Dân tộc (In-đô-nê-xi-a), Phong trào Tha-kin (Miến Điện), Liên minh Thanh niên Ma-lay-a (Mã Lai).',
-      'Vô sản: Phong trào Tha-kin và Liên minh Thanh niên Ma-lay-a | Dân chủ tư sản: khởi nghĩa Gia-va, Xu-ma-tơ-ra và Xô viết Nghệ-Tĩnh.',
-      'Vô sản: Đảng Quốc đại và Đảng Lập hiến | Dân chủ tư sản: Tâm tâm xã và Hội Phục Việt.',
-      'Vô sản: Phong trào Ngũ Tứ và bãi công Ba Son | Dân chủ tư sản: Đảng Cộng sản In-đô-nê-xi-a và Đảng Cộng sản Mã Lai.'
-    ],
-    ans: 0
-  },
-  {
-    id: 23, lesson: 'bai3',
-    q: 'Ở Trung Quốc, phong trào Ngũ Tứ nổ ra ở Bắc Kinh vào ngày nào và Đảng Cộng sản Trung Quốc được thành lập vào thời gian nào?',
-    opts: [
-      'Phong trào Ngũ Tứ ngày 4/5/1919; Đảng Cộng sản Trung Quốc thành lập tháng 7/1921.',
-      'Phong trào Ngũ Tứ ngày 1/5/1920; Đảng Cộng sản Trung Quốc thành lập tháng 7/1922.',
-      'Phong trào Ngũ Tứ ngày 9/11/1918; Đảng Cộng sản Trung Quốc thành lập tháng 3/1919.',
-      'Phong trào Ngũ Tứ ngày 4/5/1921; Đảng Cộng sản Trung Quốc thành lập tháng 7/1927.'
-    ],
-    ans: 0
-  },
-  {
-    id: 24, lesson: 'bai3',
-    q: 'Ở Đông Nam Á (1919 - 1939), hai cuộc đấu tranh tiêu biểu dưới sự lãnh đạo của Đảng Cộng sản và ba tổ chức tiêu biểu theo khuynh hướng dân chủ tư sản là gì?',
-    opts: [
-      'Vô sản: khởi nghĩa Gia-va, Xu-ma-tơ-ra (1926-1927 ở In-đô-nê-xi-a) và Xô viết Nghệ-Tĩnh (1930-1931 ở VN) | Dân chủ tư sản: Đảng Dân tộc (In-đô-nê-xi-a), Phong trào Tha-kin (Miến Điện), Liên minh Thanh niên Ma-lay-a (Mã Lai).',
-      'Vô sản: Phong trào Tha-kin và Liên minh Thanh niên Ma-lay-a | Dân chủ tư sản: khởi nghĩa Gia-va, Xu-ma-tơ-ra và Xô viết Nghệ-Tĩnh.',
-      'Vô sản: Đảng Quốc đại và Đảng Lập hiến | Dân chủ tư sản: Tâm tâm xã và Hội Phục Việt.',
-      'Vô sản: Phong trào Ngũ Tứ và bãi công Ba Son | Dân chủ tư sản: Đảng Cộng sản Ин-đô-nê-xi-a và Đảng Cộng sản Mã Lai.'
-    ],
-    ans: 0
-  },
+        function clearRhetoricSearch() {
+            document.getElementById('rhetoricSearch').value = '';
+            renderRhetoricCards();
+        }
 
-  // ==================== BÀI 4 (12 CÂU) ====================
-  {
-    id: 25, lesson: 'bai4',
-    q: 'Trước khi Chiến tranh thế giới thứ hai bùng nổ, hai khối đế quốc đối địch nhau được hình thành trên thế giới là:',
-    opts: [
-      'Khối các nước tư bản dân chủ (Anh, Pháp, Mỹ) và khối phát xít (Đức, I-ta-li-a, Nhật Bản).',
-      'Khối Hiệp ước (Anh, Pháp, Nga) và khối Liên minh (Đức, Áo - Hung, I-ta-li-a).',
-      'Khối xã hội chủ nghĩa (Liên Xô, Mông Cổ) và khối phát xít (Đức, Anh, Pháp).',
-      'Khối Bắc Đại Tây Dương (Mỹ, Anh) và khối Đông Nam Á (Nhật Bản, Trung Quốc).'
-    ],
-    ans: 0
-  },
-  {
-    id: 26, lesson: 'bai4',
-    q: 'Chính phủ các nước Anh, Pháp, Mỹ đã thực hiện chính sách gì đối với khối phát xít, tạo điều kiện cho phát xít phát động Chiến tranh thế giới thứ hai?',
-    opts: [
-      'Chính sách bao vây kinh tế và tấn công phủ đầu phát xít Đức.',
-      'Chính sách nhượng bộ phát xít nhằm đẩy Đức chống Liên Xô.',
-      'Chính sách liên minh toàn diện với Liên Xô ngay từ năm 1933.',
-      'Chính sách giải giáp toàn bộ quân đội của Đức, I-ta-li-a và Nhật Bản.'
-    ],
-    ans: 1
-  },
-  {
-    id: 27, lesson: 'bai4',
-    q: 'Chiến tranh thế giới thứ hai bắt đầu bằng sự kiện nào vào ngày 1/9/1939 và ngày 3/9/1939?',
-    opts: [
-      'Ngày 1/9/1939 quân đội Đức tấn công Ba Lan; ngày 3/9/1939 Anh, Pháp tuyên chiến với Đức.',
-      'Ngày 1/9/1939 quân đội Đức tấn công Liên Xô; ngày 3/9/1939 Mỹ tuyên chiến với Đức.',
-      'Ngày 1/9/1939 Nhật tấn công Trân Châu cảng; ngày 3/9/1939 Anh, Pháp đầu hàng Đức.',
-      'Ngày 1/9/1939 Đức đánh chiếm nước Pháp; ngày 3/9/1939 Liên Xô giải phóng Ba Lan.'
-    ],
-    ans: 0
-  },
-  {
-    id: 28, lesson: 'bai4',
-    q: 'Quân Đức tấn công Liên Xô dọc tuyến biên giới phía tây vào ngày nào và quân Nhật tấn công căn cứ Trân Châu cảng của Mỹ vào thời gian nào?',
-    opts: [
-      'Đức tấn công Liên Xô ngày 1/9/1939; Nhật tấn công Trân Châu cảng tháng 9/1940.',
-      'Đức tấn công Liên Xô ngày 22/6/1941; Nhật tấn công Trân Châu cảng tháng 12/1941.',
-      'Đức tấn công Liên Xô ngày 16/4/1945; Nhật tấn công Trân Châu cảng tháng 8/1945.',
-      'Đức tấn công Liên Xô ngày 9/5/1941; Nhật tấn công Trân Châu cảng tháng 6/1944.'
-    ],
-    ans: 1
-  },
-  {
-    id: 29, lesson: 'bai4',
-    q: 'Tháng 1/1942, Mặt trận Đồng minh chống phát xít được thành lập với ba trụ cột là:',
-    opts: [
-      'Anh, Pháp, Mỹ.',
-      'Liên Xô, Mỹ, Anh.',
-      'Liên Xô, Pháp, Trung Quốc.',
-      'Đức, I-ta-li-a, Nhật Bản.'
-    ],
-    ans: 1
-  },
-  {
-    id: 30, lesson: 'bai4',
-    q: 'Chiến thắng nào của Hồng quân Liên Xô (từ tháng 11/1942 đến tháng 2/1943) đã tạo nên bước ngoặt của Chiến tranh thế giới thứ hai (chuyển từ phòng ngự sang phản công)?',
-    opts: [
-      'Chiến thắng tại thành phố Mát-xcơ-va.',
-      'Chiến thắng tại thành phố Xta-lin-grát.',
-      'Chiến dịch công phá Béc-lin.',
-      'Chiến dịch đổ bộ vào Noóc-măng-đi.'
-    ],
-    ans: 1
-  },
-  {
-    id: 31, lesson: 'bai4',
-    q: 'Tháng 6/1944, liên quân Mỹ, Anh và Đồng minh đã mở mặt trận thứ hai ở Tây Âu, giải phóng nước Pháp bằng cuộc đổ bộ vào đâu?',
-    opts: [
-      'Đổ bộ vào thành phố Xta-lin-grát.',
-      'Đổ bộ vào Noóc-măng-đi (Bắc Pháp).',
-      'Đổ bộ vào Thủ đô Béc-lin (Đức).',
-      'Đổ bộ vào Trân Châu cảng (Thái Bình Dương).'
-    ],
-    ans: 1
-  },
-  {
-    id: 32, lesson: 'bai4',
-    q: 'Hồng quân Liên Xô mở chiến dịch công phá Béc-lin vào ngày nào và Đức ký văn kiện đầu hàng Đồng minh không điều kiện (kết thúc chiến tranh ở châu Âu) vào ngày nào?',
-    opts: [
-      'Công phá Béc-lin ngày 16/4/1945; Đức đầu hàng ngày 9/5/1945.',
-      'Công phá Béc-lin ngày 1/9/1944; Đức đầu hàng ngày 30/4/1945.',
-      'Công phá Béc-lin ngày 9/5/1945; Đức đầu hàng ngày 15/8/1945.',
-      'Công phá Béc-lin ngày 6/6/1944; Đức đầu hàng ngày 2/9/1945.'
-    ],
-    ans: 0
-  },
-  {
-    id: 33, lesson: 'bai4',
-    q: 'Diễn biến trong tháng 8/1945 dẫn đến việc Nhật Bản đầu hàng và kết thúc Chiến tranh thế giới thứ hai diễn ra theo đúng trình tự nào?',
-    opts: [
-      'Ngày 6 và 9/8 Mỹ ném 2 quả bom nguyên tử xuống Hi-rô-si-ma và Na-ga-sa-ki; ngày 8/8 Hồng quân Liên Xô tấn công quân Nhật ở Đông Bắc Trung Quốc; ngày 15/8/1945 Nhật Bản đầu hàng không điều kiện.',
-      'Ngày 1/8 Liên Xô ném bom nguyên tử xuống Tô-ki-ô; ngày 9/8 Mỹ đổ bộ vào Đông Bắc Trung Quốc; ngày 30/8 Nhật Bản đầu hàng.',
-      'Ngày 6/8 Nhật tấn công Trân Châu cảng; ngày 8/8 Đức đầu hàng ở Béc-lin; ngày 15/8 Mỹ ký hòa ước với Nhật.',
-      'Ngày 8/8 Anh và Pháp giải phóng Đông Bắc Trung Quốc; ngày 15/8 Liên Xô ném bom nguyên tử xuống Na-ga-sa-ki.'
-    ],
-    ans: 0
-  },
-  {
-    id: 34, lesson: 'bai4',
-    q: 'Những con số nào phản ánh đúng hậu quả nặng nề của Chiến tranh thế giới thứ hai đối với nhân loại?',
-    opts: [
-      '76 nước tham chiến, 110 triệu người nhập ngũ, 60 triệu người chết, 90 triệu người bị thương, thiệt hại vật chất 4.000 tỉ USD, chi phí quân sự trực tiếp 1.384 tỉ USD.',
-      '50 nước tham chiến, 60 triệu người nhập ngũ, 30 triệu người chết, 45 triệu người bị thương, thiệt hại vật chất 1.384 tỉ USD.',
-      '110 nước tham chiến, 76 triệu người nhập ngũ, 90 triệu người chết, 60 triệu người bị thương, thiệt hại vật chất 2.000 tỉ USD.',
-      '36 nước tham chiến, 50 triệu người nhập ngũ, 10 triệu người chết, 20 triệu người bị thương, thiệt hại vật chất 400 tỉ USD.'
-    ],
-    ans: 0
-  },
-  {
-    id: 35, lesson: 'bai4',
-    q: 'Tính chất của Chiến tranh thế giới thứ hai đối với phe phát xít và đối với phe Đồng minh là gì?',
-    opts: [
-      'Cả hai phe đều tiến hành cuộc chiến tranh đế quốc phi nghĩa nhằm phân chia thuộc địa.',
-      'Là cuộc chiến tranh phi nghĩa do phe phát xít gây ra, còn là cuộc chiến tranh chính nghĩa của phe Đồng minh và các dân tộc bị phát xít chiếm đóng.',
-      'Là cuộc chiến tranh chính nghĩa của phe phát xít và phi nghĩa của phe Đồng minh.',
-      'Cả hai phe đều tiến hành cuộc chiến tranh chính nghĩa bảo vệ hòa bình thế giới.'
-    ],
-    ans: 1
-  },
-  {
-    id: 36, lesson: 'bai4',
-    q: 'Trong ba cường quốc trụ cột của lực lượng Đồng minh (Liên Xô, Mỹ, Anh), quốc gia nào giữ vai trò quyết định nhất trong thắng lợi chống chủ nghĩa phát xít?',
-    opts: [
-      'Nước Mỹ.',
-      'Nước Anh.',
-      'Liên Xô.',
-      'Nước Pháp.'
-    ],
-    ans: 2
-  },
+        function setRhetoricGroup(group) {
+            currentRhetoricGroup = group;
+            document.querySelectorAll('.rhet-filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-group') === group) {
+                    btn.className = "rhet-filter-btn shrink-0 px-3 py-2 rounded-xl text-xs font-extrabold bg-amber-400 text-slate-950 transition";
+                } else {
+                    btn.className = "rhet-filter-btn shrink-0 px-3 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition";
+                }
+            });
+            renderRhetoricCards();
+        }
 
-  // ==================== BÀI 5 (12 CÂU) ====================
-  {
-    id: 37, lesson: 'bai5',
-    q: 'Năm 1923, tại Quảng Châu (Trung Quốc), tổ chức yêu nước nào được thành lập với chủ trương "khôi phục quyền làm người của người Việt Nam" và gây tiếng vang với vụ mưu sát Toàn quyền Méc-lanh tại Sa Diện (1924)?',
-    opts: [
-      'Hội những người yêu nước Việt Nam tại Pháp.',
-      'Tổ chức Tâm tâm xã.',
-      'Đảng Lập hiến.',
-      'Nam Đồng thư xã.'
-    ],
-    ans: 1
-  },
-  {
-    id: 38, lesson: 'bai5',
-    q: 'Tại Pháp năm 1919, ai đã cùng một số người Việt Nam sáng lập "Hội những người yêu nước Việt Nam tại Pháp" và viết nhiều tác phẩm lên án chế độ quân chủ trong nước?',
-    opts: [
-      'Phan Bội Châu.',
-      'Phan Châu Trinh.',
-      'Nguyễn Thái Học.',
-      'Phó Đức Chính.'
-    ],
-    ans: 1
-  },
-  {
-    id: 39, lesson: 'bai5',
-    q: 'Các phong trào đấu tranh tiêu biểu của giai cấp tư sản Việt Nam trong những năm 1919 - 1923 bao gồm:',
-    opts: [
-      'Tẩy chay tư sản Hoa kiều, vận động người Việt dùng hàng Việt (1919); chống độc quyền cảng Sài Gòn của tư sản Pháp (1923); thành lập Đảng Lập hiến tại Sài Gòn (1923).',
-      'Thành lập Nam Đồng thư xã, Cường học thư xã; đòi thả Phan Bội Châu (1925) và tổ chức đám tang Phan Châu Trinh (1926).',
-      'Bãi công tại xưởng đóng tàu Ba Son (1925), mỏ than Mạo Khê và đồn điền cao su Phú Riềng.',
-      'Mưu sát Toàn quyền Méc-lanh tại Sa Diện (1924) và thành lập Tân Việt Cách mạng Đảng (1928).'
-    ],
-    ans: 0
-  },
-  {
-    id: 40, lesson: 'bai5',
-    q: 'Một số tư sản và đại địa chủ Việt Nam đã lập ra những tờ báo nào để làm công cụ tuyên truyền và đòi quyền lợi cho mình?',
-    opts: [
-      'Chuông rạn, An Nam trẻ.',
-      'Thực nghiệp dân báo, Diễn đàn bản xứ, Tiếng vang An Nam.',
-      'Cường học thư xã, Quan hải tùng thư, Nam Đồng thư xã.',
-      'Thanh niên, Nhân dân, Cứu quốc.'
-    ],
-    ans: 1
-  },
-  {
-    id: 41, lesson: 'bai5',
-    q: 'Trong phong trào yêu nước của tầng lớp tiểu tư sản Việt Nam, những nhà xuất bản tiến bộ và những tờ báo tiêu biểu nào đã ra đời?',
-    opts: [
-      'Nhà xuất bản: Cường học thư xã, Quan hải tùng thư, Nam Đồng thư xã | Báo: Chuông rạn, An Nam trẻ.',
-      'Nhà xuất bản: Đảng Lập hiến, Tâm tâm xã | Báo: Thực nghiệp dân báo, Diễn đàn bản xứ, Tiếng vang An Nam.',
-      'Nhà xuất bản: Ba Son, Trường Thi, Phú Riềng | Báo: Tiếng vang An Nam, Thực nghiệp dân báo.',
-      'Nhà xuất bản: Hội Phục Việt, Việt Nam nghĩa đoàn | Báo: Diễn đàn bản xứ.'
-    ],
-    ans: 0
-  },
-  {
-    id: 42, lesson: 'bai5',
-    q: 'Những tổ chức chính trị sơ khai nào đã ra đời làm nòng cốt trong phong trào yêu nước của tầng lớp tiểu tư sản Việt Nam?',
-    opts: [
-      'Đảng Lập hiến, Quốc dân Đảng Trung Quốc, Đảng Quốc đại.',
-      'Thanh niên cao vọng Đảng, Việt Nam nghĩa đoàn, Hội Phục Việt, Đảng Thanh niên.',
-      'Đảng Cộng sản Pháp, Đảng Cộng sản Anh, Quốc tế Cộng sản.',
-      'Phong trào Tha-kin, Liên minh Thanh niên Ma-lay-a.'
-    ],
-    ans: 1
-  },
-  {
-    id: 43, lesson: 'bai5',
-    q: 'Trong những năm 1925 - 1926, tầng lớp tiểu tư sản Việt Nam đã sôi nổi tham gia các phong trào đấu tranh chính trị tiêu biểu nào?',
-    opts: [
-      'Tẩy chay tư sản Hoa kiều và chống độc quyền cảng Sài Gòn.',
-      'Đòi nhà cầm quyền Pháp thả Phan Bội Châu (1925), Nguyễn An Ninh (1926), tổ chức đám tang và lễ truy điệu Phan Châu Trinh (1926).',
-      'Mưu sát Toàn quyền Đông Dương Méc-lanh tại Sa Diện (Quảng Châu).',
-      'Bãi công đòi tăng lương, giảm giờ làm tại nhà máy xe lửa Trường Thi (Vinh).'
-    ],
-    ans: 1
-  },
-  {
-    id: 44, lesson: 'bai5',
-    q: 'Trong giai đoạn 1919 - 1925, các cuộc đấu tranh của giai cấp công nhân Việt Nam diễn ra với mục đích chủ yếu và hình thức gì?',
-    opts: [
-      'Mục đích chủ yếu là đòi tăng lương, giảm giờ làm; bên cạnh bỏ trốn, phá giao kèo đã bắt đầu sử dụng hình thức đấu tranh bãi công.',
-      'Mục đích chủ yếu là lật đổ ngay chính quyền thực dân Pháp bằng khởi nghĩa vũ trang toàn quốc.',
-      'Mục đích chủ yếu là đòi tự do thương mại ở cảng Sài Gòn và lập Đảng Lập hiến.',
-      'Mục đích chủ yếu là xuất bản sách báo tiếng Pháp như Chuông rạn, An Nam trẻ.'
-    ],
-    ans: 0
-  },
-  {
-    id: 45, lesson: 'bai5',
-    q: 'Tháng 8/1925, cuộc bãi công của công nhân Ba Son (Sài Gòn) nổ ra và giành thắng lợi đã đánh dấu bước ngoặt gì của phong trào công nhân Việt Nam?',
-    opts: [
-      'Đánh dấu bước chuyển của phong trào công nhân Việt Nam từ giai đoạn đấu tranh "tự phát" sang "tự giác".',
-      'Đánh dấu việc giai cấp tư sản Việt Nam giành được độc quyền xuất khẩu lúa gạo ở cảng Sài Gòn.',
-      'Đánh dấu sự kết thúc hoàn toàn ách thống trị của thực dân Pháp ở Đông Dương.',
-      'Đánh dấu sự ra đời của Đảng Lập hiến tại Sài Gòn.'
-    ],
-    ans: 0
-  },
-  {
-    id: 46, lesson: 'bai5',
-    q: 'Từ năm 1926 đến năm 1930, những cuộc đấu tranh lớn có tổ chức của giai cấp công nhân Việt Nam đã nổ ra ở những địa điểm tiêu biểu nào?',
-    opts: [
-      'Mỏ than Mạo Khê (Quảng Ninh), nhà máy xe lửa Trường Thi (Vinh), nhà máy sửa chữa ô tô A-vi-a (Hà Nội), đồn điền cao su Phú Riềng (Bình Phước).',
-      'Khách sạn Sa Diện (Quảng Châu), cảng Sài Gòn, Bắc Kinh và Tô-ki-ô.',
-      'Gia-va, Xu-ma-tơ-ra, Miến Điện và Mã Lai.',
-      'Noóc-măng-đi, Xta-lin-grát và Béc-lin.'
-    ],
-    ans: 0
-  },
-  {
-    id: 47, lesson: 'bai5',
-    q: 'Tháng 6/1925, Nguyễn Ái Quốc đã thành lập tổ chức cách mạng nào tại Quảng Châu (Trung Quốc) trên cơ sở lựa chọn các thanh niên ưu tú từ tổ chức Tâm tâm xã và từ trong nước sang?',
-    opts: [
-      'Tân Việt Cách mạng Đảng.',
-      'Việt Nam Quốc dân Đảng.',
-      'Hội Việt Nam Cách mạng Thanh niên.',
-      'Hội Phục Việt.'
-    ],
-    ans: 2
-  },
-  {
-    id: 48, lesson: 'bai5',
-    q: 'Tân Việt Cách mạng Đảng (tháng 7/1928) và Việt Nam Quốc dân Đảng (tháng 12/1927) lần lượt ra đời từ những tổ chức tiền thân / hạt nhân nào?',
-    opts: [
-      'Tân Việt Cách mạng Đảng có tiền thân là Hội Phục Việt; Việt Nam Quốc dân Đảng có cơ sở hạt nhân là Nam Đồng thư xã (Nguyễn Thái Học, Phó Đức Chính,...).',
-      'Tân Việt Cách mạng Đảng có tiền thân là Tâm tâm xã; Việt Nam Quốc dân Đảng có hạt nhân là Đảng Lập hiến.',
-      'Tân Việt Cách mạng Đảng có tiền thân là Nam Đồng thư xã; Việt Nam Quốc dân Đảng có hạt nhân là Hội Phục Việt.',
-      'Cả hai đảng đều có tiền thân từ Hội những người yêu nước Việt Nam tại Pháp của Phan Châu Trinh.'
-    ],
-    ans: 0
-  }
-];
+        function toggleKeywordHighlight() {
+            highlightEnabled = !highlightEnabled;
+            const grid = document.getElementById('rhetoricGrid');
+            const btn = document.getElementById('toggleHighlightBtn');
+            if (highlightEnabled) {
+                grid.classList.remove('kw-off');
+                btn.className = "px-4 py-2.5 rounded-xl bg-amber-400 text-slate-950 font-extrabold text-xs sm:text-sm shadow-lg shadow-amber-400/20 hover:bg-amber-300 transition flex items-center gap-2";
+                btn.innerHTML = "<span>✨ Đang Bật Tô Sáng Từ Khóa Ăn Tiền</span>";
+            } else {
+                grid.classList.add('kw-off');
+                btn.className = "px-4 py-2.5 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs sm:text-sm border border-slate-700 hover:bg-slate-700 transition flex items-center gap-2";
+                btn.innerHTML = "<span>🌑 Đã Tắt Tô Sáng Từ Khóa (Bấm Để Bật)</span>";
+            }
+        }
 
-let autoShowGreen = false;
-let currentFilter = 'all';
-let selectedMap = {}; // { qId: chosenIndex }
+        function sendDeviceToBuilder(deviceName) {
+            const select = document.getElementById('b_device');
+            for (let i = 0; i < select.options.length; i++) {
+                if (select.options[i].value === deviceName) {
+                    select.selectedIndex = i;
+                    break;
+                }
+            }
+            updateParagraphBuilder();
+            document.getElementById('sec-part3').scrollIntoView({ behavior: 'smooth' });
+            showToast(`Đã nạp "${deviceName.toUpperCase()}" xuống Máy Ghép Văn!`);
+        }
 
-function renderMCQ() {
-  const listEl = document.getElementById('mcqList');
-  listEl.innerHTML = '';
-  const letters = ['A', 'B', 'C', 'D'];
+        // -------------------------------------------------------------------------
+        // 3. MÁY ĐẾM CHỮ BẮT THỂ THƠ (PHẦN 1)
+        // -------------------------------------------------------------------------
+        const poemSamples = {
+            lucbat: `Công cha như núi Thái Sơn\nNghĩa mẹ như nước trong nguồn chảy ra\nMột lòng thờ mẹ kính cha\nCho tròn chữ hiếu mới là đạo con`,
+            '4chu': `Mây bay bay cao\nGió thổi thổi nào\nCánh diều no gió\nSáo thổi lưng trời`,
+            '5chu': `Sóng bắt đầu từ gió\nGió bắt đầu từ đâu\nEm cũng không biết nữa\nKhi nào ta yêu nhau`,
+            '7chu': `Sông Mã xa rồi Tây Tiến ơi\nNhớ về rừng núi nhớ chơi vơi\nSài Khao sương lấp đoàn quân mỏi\nMường Lát hoa về trong đêm hơi`,
+            '8chu_trap': `Tiếng suối trong như tiếng hát xa\nTrăng lồng cổ thụ bóng lồng hoa\nCảnh khuya như vẽ người chưa ngủ\nChưa ngủ vì lo nỗi nước nhà`,
+            '8chu_chuan': `Quê hương tôi có con sông xanh biếc\nNước gương trong soi tóc những hàng tre\nTâm hồn tôi là một buổi trưa hè\nToả nắng xuống lòng sông lấp loáng`,
+            tudo_trap: `Sương chùng chình qua ngõ\nHình như thu đã về\nSông được lúc dềnh dàng\nChim bắt đầu vội vã`,
+            tudo: `Đất nước\nCủa những người mẹ\nMặc áo thay vai\nHạt lúa củ khoai\nBền bỉ nuôi chồng, nuôi con chiến đấu`
+        };
 
-  const visibleQuestions = mcqData.filter(item =>
-    currentFilter === 'all' || item.lesson === currentFilter
-  );
+        function loadPoemSample(type) {
+            const input = document.getElementById('poemInput');
+            input.value = poemSamples[type] || poemSamples.lucbat;
+            analyzePoemMeter();
+            if (type === '8chu_trap' || type === 'tudo_trap') {
+                showToast("🚨 Nhìn kỹ kết quả máy đếm số chữ từng dòng kìa mày!");
+            }
+        }
 
-  visibleQuestions.forEach(item => {
-    const qDiv = document.createElement('div');
-    qDiv.className = 'q-item';
-    qDiv.setAttribute('data-lesson', item.lesson);
+        function analyzePoemMeter() {
+            const raw = document.getElementById('poemInput').value.trim();
+            const box = document.getElementById('poemResultBox');
 
-    const chosen = selectedMap[item.id];
+            if (!raw) {
+                box.innerHTML = `
+                    <div class="text-slate-400 text-sm my-auto text-center py-4">
+                        👆 Bấm nút nạp mẫu ở trên hoặc dán câu thơ vào ô bên trái để tao đếm chữ bắt thể thơ cho!
+                    </div>
+                `;
+                return;
+            }
 
-    let optsHtml = '';
-    item.opts.forEach((optText, idx) => {
-      let stateClass = '';
-      if (autoShowGreen) {
-        if (idx === item.ans) stateClass = 'is-correct';
-      } else if (chosen !== undefined) {
-        if (idx === item.ans) stateClass = 'is-correct';
-        else if (idx === chosen && chosen !== item.ans) stateClass = 'is-wrong';
-      }
+            const lines = raw.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+            const counts = lines.map(line => {
+                // Loại bỏ dấu câu để đếm đúng số tiếng/chữ
+                const clean = line.replace(/[.,!?;:"'()…\-–—/]/g, ' ').trim();
+                return clean ? clean.split(/\s+/).length : 0;
+            });
 
-      optsHtml += `
-        <button class="opt-btn ${stateClass}" onclick="chooseOption(${item.id}, ${idx})">
-          <div class="opt-left">
-            <span class="opt-letter">${letters[idx]}.</span>
-            <span>${optText}</span>
-          </div>
-          <span class="check-icon">✓ ĐÚNG</span>
-        </button>
-      `;
-    });
+            // Phân tích quy luật
+            let verdict = "Thể thơ Tự do";
+            let reason = "Các dòng dài ngắn lộn xộn (" + counts.join(', ') + " chữ) không theo quy tắc cố định ➔ Chốt Thể thơ Tự do!";
+            let badgeClass = "bg-sky-400 text-slate-950";
 
-    qDiv.innerHTML = `
-      <div class="q-question">
-        <span class="q-label">Câu ${item.id}:</span> ${item.q}
-      </div>
-      <div class="q-options">
-        ${optsHtml}
-      </div>
-    `;
-    listEl.appendChild(qDiv);
-  });
+            const allSame = counts.length >= 2 && counts.every(c => c === counts[0]);
+            const isLucBat = counts.length >= 2 && counts.every((c, idx) => (idx % 2 === 0 ? c === 6 : c === 8));
+            const isLucBatReverse = counts.length >= 2 && counts.every((c, idx) => (idx % 2 === 0 ? c === 8 : c === 6));
 
-  updateProgress();
-}
+            if (isLucBat || isLucBatReverse) {
+                verdict = "Thể thơ Lục bát";
+                reason = "Chuẩn đét dòng 6 chữ xen kẽ dòng 8 chữ! Ghi ngay 'Thể thơ lục bát' lụm 0.5 điểm!";
+                badgeClass = "bg-amber-400 text-slate-950";
+            } else if (allSame) {
+                const numMap = { 4: "Bốn chữ (4 chữ)", 5: "Năm chữ (Ngũ ngôn)", 6: "Sáu chữ (6 chữ)", 7: "Bảy chữ (Thất ngôn)", 8: "Tám chữ (Bát ngôn)" };
+                const name = numMap[counts[0]] || (counts[0] + " chữ");
+                verdict = `Thể thơ ${name}`;
+                reason = `Tất cả các dòng đều bằng nhau chằn chặn (${counts[0]} chữ/dòng). Cấm ghi tự do nha con, ghi đúng '${verdict}'!`;
+                badgeClass = "bg-emerald-400 text-slate-950";
+            }
 
-function chooseOption(qId, optIdx) {
-  if (autoShowGreen) return;
-  selectedMap[qId] = optIdx;
-  renderMCQ();
-}
+            const lineBreakdown = lines.slice(0, 5).map((l, idx) => `
+                <div class="flex items-center justify-between text-xs py-1 border-b border-slate-800/80 last:border-none">
+                    <span class="text-slate-300 truncate pr-2">Dòng ${idx + 1}: "${l}"</span>
+                    <span class="shrink-0 px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-bold">${counts[idx]} chữ</span>
+                </div>
+            `).join('');
 
-function toggleStudyMode(isAuto) {
-  autoShowGreen = isAuto;
-  document.getElementById('btnAutoGreen').classList.toggle('active-green', isAuto);
-  document.getElementById('btnClickMode').classList.toggle('active-green', !isAuto);
-  renderMCQ();
-}
+            box.innerHTML = `
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="text-xs font-bold text-slate-400">Kết quả đếm từng dòng:</span>
+                        <span class="px-3 py-1 rounded-lg font-black text-xs uppercase ${badgeClass}">
+                            🎯 Chốt: ${verdict}
+                        </span>
+                    </div>
+                    <div class="bg-slate-900/90 rounded-lg p-2.5 border border-slate-800">
+                        ${lineBreakdown}
+                    </div>
+                </div>
+                <p class="text-xs text-emerald-300 font-semibold mt-2 pt-2 border-t border-slate-800">
+                    💡 ${reason}
+                </p>
+            `;
+        }
 
-function resetChoices() {
-  selectedMap = {};
-  autoShowGreen = false;
-  document.getElementById('btnAutoGreen').classList.remove('active-green');
-  document.getElementById('btnClickMode').classList.add('active-green');
-  renderMCQ();
-}
+        // -------------------------------------------------------------------------
+        // 4. MÁY GHÉP ĐOẠN VĂN TỰ ĐỘNG CHUẨN 4 BƯỚC (PHẦN 3)
+        // -------------------------------------------------------------------------
+        function getArtisticEffectByDevice(device) {
+            const group1 = ['so sánh', 'nhân hóa', 'ẩn dụ', 'hoán dụ'];
+            const group2 = ['điệp ngữ', 'liệt kê'];
+            if (group1.includes(device)) {
+                return "giúp câu thơ/câu văn trở nên sinh động, hấp dẫn, giàu hình ảnh và giàu sức gợi hình, gợi cảm";
+            } else if (group2.includes(device)) {
+                return "giúp tạo nhịp điệu hài hòa, dồn dập (hoặc tha thiết), làm tăng sức biểu đạt và gây ấn tượng mạnh";
+            } else if (device === 'câu hỏi tu từ') {
+                return "tạo giọng điệu băn khoăn, trăn trở, xoáy sâu vào tâm trí người đọc";
+            } else if (device === 'nói quá') {
+                return "giúp phóng đại quy mô, tính chất của sự việc nhằm gây ấn tượng mạnh mẽ và tăng sức biểu cảm cho lời văn";
+            } else {
+                return "giúp làm giảm nhẹ cảm giác đau thương, mất mát và thể hiện thái độ trang trọng, lịch sự, tinh tế";
+            }
+        }
 
-function updateProgress() {
-  const count = Object.keys(selectedMap).length;
-  const pEl = document.getElementById('progressText');
-  if (autoShowGreen) {
-    pEl.textContent = 'Đang bật: Hiện sẵn 48/48 đáp án Xanh';
-  } else {
-    pEl.textContent = `Đã chọn: ${count}/${mcqData.length} câu`;
-  }
-}
+        function updateParagraphBuilder() {
+            const device = document.getElementById('b_device').value;
+            const quote = document.getElementById('b_quote').value.trim() || "[Chép lại từ ngữ/câu thơ trong đề]";
+            const meaning = document.getElementById('b_meaning').value.trim() || "[Nội dung chính của câu đó]";
+            const emotion = document.getElementById('b_emotion').value.trim() || "yêu mến, trân trọng";
+            const target = document.getElementById('b_target').value.trim() || "[đối tượng trong bài]";
 
-function filterByLesson(lesson, btn) {
-  currentFilter = lesson;
-  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-  if (btn) btn.classList.add('active');
+            const artEffect = getArtisticEffectByDevice(device);
 
-  renderMCQ();
+            const step1 = `<span class="text-rose-300 font-semibold">Tác giả đã sử dụng rất thành công biện pháp tu từ <strong>${device}</strong> được thể hiện qua hình ảnh/từ ngữ <strong>"${quote}"</strong>.</span>`;
+            const step2 = `<span class="text-amber-300 font-semibold">Việc sử dụng biện pháp ${device} này ${artEffect}.</span>`;
+            const step3 = `<span class="text-emerald-300 font-semibold">Qua đó, biện pháp này nhằm nhấn mạnh và làm nổi bật ${meaning}.</span>`;
+            const step4 = `<span class="text-sky-300 font-semibold">Đồng thời, thể hiện tình cảm ${emotion} sâu sắc của tác giả dành cho ${target}.</span>`;
 
-  document.querySelectorAll('.essay-card').forEach(card => {
-    const cLesson = card.getAttribute('data-lesson');
-    if (lesson === 'all' || cLesson === lesson) {
-      card.style.display = 'block';
-    } else {
-      card.style.display = 'none';
-    }
-  });
-}
+            document.getElementById('generatedOutput').innerHTML = `${step1} ${step2} ${step3} ${step4}`;
+        }
 
-// Khởi tạo ngay lập tức
-renderMCQ();
-</script>
+        function setEmotionChip(val) {
+            document.getElementById('b_emotion').value = val;
+            updateParagraphBuilder();
+        }
+
+        function loadBuilderSample(sampleId) {
+            if (sampleId === 1) {
+                document.getElementById('b_device').value = 'so sánh';
+                document.getElementById('b_quote').value = 'Công cha như núi Thái Sơn';
+                document.getElementById('b_meaning').value = 'công lao sinh thành, dưỡng dục to lớn, vĩ đại và sự che chở vững chãi của người cha đối với con cái';
+                document.getElementById('b_emotion').value = 'biết ơn, kính trọng và ngợi ca';
+                document.getElementById('b_target').value = 'người cha cũng như tình phụ tử thiêng liêng';
+            } else if (sampleId === 2) {
+                document.getElementById('b_device').value = 'ẩn dụ';
+                document.getElementById('b_quote').value = 'Ngày ngày Mặt Trời đi qua trên lăng / Thấy một Mặt Trời trong lăng rất đỏ';
+                document.getElementById('b_meaning').value = 'sự vĩ đại, công lao soi đường chỉ lối của Bác Hồ đối với dân tộc Việt Nam cũng rực rỡ và bất tử như vầng mặt trời tự nhiên';
+                document.getElementById('b_emotion').value = 'kính yêu, biết ơn vô hạn và tự hào';
+                document.getElementById('b_target').value = 'Chủ tịch Hồ Chí Minh vĩ đại';
+            } else if (sampleId === 3) {
+                document.getElementById('b_device').value = 'điệp ngữ';
+                document.getElementById('b_quote').value = 'Tre giữ làng, tre giữ nước, tre giữ mái nhà tranh, tre giữ đồng lúa chín';
+                document.getElementById('b_meaning').value = 'vai trò gắn bó bền chặt, kiên cường của cây tre trong công cuộc bảo vệ quê hương, đất nước cùng nhân dân Việt Nam';
+                document.getElementById('b_emotion').value = 'yêu mến, tự hào và trân trọng';
+                document.getElementById('b_target').value = 'hình ảnh cây tre Việt Nam và tinh thần bất khuất của dân tộc';
+            }
+            updateParagraphBuilder();
+            showToast("Đã nạp ví dụ mẫu chuẩn 4 bước!");
+        }
+
+        function copyGeneratedParagraph() {
+            const text = document.getElementById('generatedOutput').innerText;
+            const tempInput = document.createElement('textarea');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast("✅ Đã copy đoạn văn chuẩn 4 bước vào bộ nhớ tạm!");
+        }
+
+        // -------------------------------------------------------------------------
+        // 5. MINI GAME 5 CÂU TRẮC NGHIỆM BẮT BỆNH (PHẦN 4)
+        // -------------------------------------------------------------------------
+        const quizQuestions = [
+            {
+                id: 1,
+                question: `Câu 1: Đọc câu thơ "Bàn tay ta làm nên tất cả / Có sức người sỏi đá cũng thành cơm". Từ "Bàn tay" ở đây là biện pháp tu từ gì?`,
+                options: [
+                    "A. Ẩn dụ (Vì bàn tay giống con người)",
+                    "B. Hoán dụ (Lấy bộ phận 'bàn tay' để chỉ người lao động)",
+                    "C. Nhân hóa (Vì bàn tay biết làm cơm)",
+                    "D. So sánh"
+                ],
+                correct: 1,
+                praise: "Đỉnh quá mày ơi! 'Bàn tay' là bộ phận trên cơ thể đi liền với người lao động ➔ Chốt Hoán dụ auto lụm điểm!",
+                roast: "Ối giời ơi sập bẫy rồi con! 'Bàn tay' là một bộ phận của cơ thể con người (quan hệ gần gũi, bộ phận - toàn thể) nên phải là HOÁN DỤ chứ không phải Ẩn dụ nha mày!"
+            },
+            {
+                id: 2,
+                question: `Câu 2: Vào phòng thi gặp đoạn trích truyện: "Lão Hạc ngồi trầm ngâm. Tôi nhìn lão, lòng dâng lên nỗi xót xa khó tả." Hỏi đoạn văn dùng ngôi kể thứ mấy?`,
+                options: [
+                    "A. Ngôi thứ ba (Vì có tên Lão Hạc)",
+                    "B. Ngôi thứ hai",
+                    "C. Ngôi thứ nhất (Vì người kể xưng 'Tôi')",
+                    "D. Cả ngôi thứ nhất và ngôi thứ ba"
+                ],
+                correct: 2,
+                praise: "Chuẩn đét! Thấy người kể chuyện xưng 'Tôi' sờ sờ ra đó là khoanh ngay Ngôi thứ nhất trong 1 nốt nhạc!",
+                roast: "Ngáo đá hả mày?! Nhìn chữ 'Tôi nhìn lão' to đùng kìa! Nhân vật người kể chuyện tự xưng 'Tôi' thì 100% là NGÔI THỨ NHẤT!"
+            },
+            {
+                id: 3,
+                question: `Câu 3: Đề bài cho một bài thơ rồi hỏi: "Xác định phương thức biểu đạt CHÍNH của đoạn trích". Mày phải ghi đáp án như thế nào để không bị trừ điểm?`,
+                options: [
+                    "A. Ghi hết cho chắc: Tự sự, miêu tả, biểu cảm",
+                    "B. Chỉ ghi duy nhất 1 phương thức: Biểu cảm",
+                    "C. Ghi: Nghị luận kết hợp biểu cảm",
+                    "D. Ghi: Thơ tự do"
+                ],
+                correct: 1,
+                praise: "Quá tỉnh táo! Đề hỏi 'CHÍNH' là chỉ ghi đúng 1 cái, mà đề cho Thơ thì 99% chốt ngay BIỂU CẢM!",
+                roast: "Tự hủy rồi con ơi! Tao dặn rát cổ họng: Đề có chữ 'CHÍNH' thì chỉ được ghi ĐÚNG 1 CÁI. Đề cho Thơ thì ghi duy nhất chữ 'Biểu cảm' thôi!"
+            },
+            {
+                id: 4,
+                question: `Câu 4: Câu thơ "Thuyền về có nhớ bến chăng? / Bến thì một dạ khăng khăng đợi thuyền" sử dụng những biện pháp tu từ nào?`,
+                options: [
+                    "A. Chỉ có So sánh",
+                    "B. Ẩn dụ, Nhân hóa và Câu hỏi tu từ",
+                    "C. Nói giảm nói tránh và Liệt kê",
+                    "D. Hoán dụ và Nói quá"
+                ],
+                correct: 1,
+                praise: "Khét lẹt! Có dấu '?' xoáy sâu cảm xúc (Câu hỏi tu từ) + Thuyền/Bến biết 'nhớ, đợi' (Nhân hóa) + Mượn Thuyền/Bến chỉ người đi/kẻ ở (Ẩn dụ)!",
+                roast: "Nhìn kỹ lại dấu hiệu đi mày! Có dấu chấm hỏi '?' cuối dòng 1 (Câu hỏi tu từ), chữ 'nhớ, đợi' của người gắn cho thuyền bến (Nhân hóa), và mượn thuyền bến chỉ tình cảm đôi lứa (Ẩn dụ)!"
+            },
+            {
+                id: 5,
+                question: `Câu 5: Khi làm câu "Phân tích tác dụng của biện pháp tu từ", nếu mày chỉ ghi "Tác giả dùng biện pháp so sánh giúp câu thơ sinh động" mà QUÊN trích dẫn câu thơ vào ngoặc kép thì bị sao?`,
+                options: [
+                    "A. Không sao hết, giám khảo tự hiểu",
+                    "B. Được cộng thêm điểm sáng tạo",
+                    "C. Bay màu ngay 0.25 - 0.5 điểm vì thiếu bằng chứng từ ngữ!",
+                    "D. Bị 0 điểm toàn bài thi"
+                ],
+                correct: 2,
+                praise: "Thuộc bài đấy! Nhớ kỹ lời tao: Bắt buộc phải mở ngoặc kép chép lại từ ngữ/hình ảnh chứa biện pháp tu từ đó ra!",
+                roast: "Trời đất ơi cái Cảnh Báo Đỏ to tổ chảng ở Phần 3 mà mày quên hả?! Không trích dẫn từ ngữ trong ngoặc kép là giám khảo trừ thẳng tay 0.25 - 0.5 điểm đó!"
+            }
+        ];
+
+        let userAnswers = {};
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            let correctCount = 0;
+
+            container.innerHTML = quizQuestions.map((q, qIdx) => {
+                const answered = userAnswers[q.id];
+                const isCorrect = answered === q.correct;
+                if (isCorrect) correctCount++;
+
+                const optionsHtml = q.options.map((opt, optIdx) => {
+                    let btnStyle = "bg-slate-950 border-slate-800 text-slate-200 hover:border-amber-400/60";
+                    if (answered !== undefined) {
+                        if (optIdx === q.correct) {
+                            btnStyle = "bg-emerald-500/20 border-emerald-400 text-emerald-200 font-bold";
+                        } else if (optIdx === answered && answered !== q.correct) {
+                            btnStyle = "bg-rose-500/20 border-rose-500 text-rose-200 line-through";
+                        } else {
+                            btnStyle = "bg-slate-950/50 border-slate-800/50 text-slate-500";
+                        }
+                    }
+
+                    return `
+                        <button onclick="selectQuizOption(${q.id}, ${optIdx})" class="w-full text-left p-3 rounded-xl border text-xs sm:text-sm transition ${btnStyle}">
+                            ${opt}
+                        </button>
+                    `;
+                }).join('');
+
+                let feedbackHtml = '';
+                if (answered !== undefined) {
+                    if (isCorrect) {
+                        feedbackHtml = `
+                            <div class="mt-3 p-3 rounded-xl bg-emerald-950/70 border border-emerald-500/50 text-xs sm:text-sm text-emerald-200">
+                                🎉 <strong>Chuẩn bài:</strong> ${q.praise}
+                            </div>
+                        `;
+                    } else {
+                        feedbackHtml = `
+                            <div class="mt-3 p-3 rounded-xl bg-rose-950/70 border border-rose-500/50 text-xs sm:text-sm text-rose-200">
+                                💥 <strong>Chửi yêu:</strong> ${q.roast}
+                            </div>
+                        `;
+                    }
+                }
+
+                return `
+                    <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
+                        <p class="text-sm sm:text-base font-bold text-white leading-snug">${q.question}</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            ${optionsHtml}
+                        </div>
+                        ${feedbackHtml}
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('quizScore').innerText = `${correctCount}/${quizQuestions.length}`;
+        }
+
+        function selectQuizOption(qId, optIdx) {
+            userAnswers[qId] = optIdx;
+            renderQuiz();
+        }
+
+        function resetQuiz() {
+            userAnswers = {};
+            renderQuiz();
+            showToast("Đã làm mới 5 câu trắc nghiệm!");
+        }
+
+        // -------------------------------------------------------------------------
+        // 6. ĐỀ FAKE THỰC CHIẾN & MÁY CHẤM TỨC THÌ (PHẦN 4)
+        // -------------------------------------------------------------------------
+        const fakeExams = {
+            1: {
+                title: "ĐỀ FAKE SỐ 01 (Dạng Thơ - Chuẩn cấu trúc thi thật)",
+                excerpt: `"Quê hương là chùm khế ngọt\nCho con trèo hái mỗi ngày\nQuê hương là đường đi học\nCon về rợp bướm vàng bay"`,
+                author: "(Trích 'Quê hương' - Đỗ Trung Quân)",
+                q1: "Câu 1 (0.5đ): Xác định thể thơ và phương thức biểu đạt chính của đoạn thơ.",
+                a1: "Thể thơ: Sáu chữ (6 chữ) • PTBĐ chính: Biểu cảm.",
+                q2: "Câu 3 (1.0đ): Phân tích tác dụng của biện pháp tu từ SO SÁNH trong câu thơ 'Quê hương là chùm khế ngọt'.",
+                sampleAnswer: `Tác giả đã sử dụng rất thành công biện pháp tu từ so sánh được thể hiện qua hình ảnh "Quê hương là chùm khế ngọt". Việc sử dụng biện pháp so sánh này giúp câu thơ trở nên sinh động, hấp dẫn, giàu hình ảnh và giàu sức gợi hình, gợi cảm. Qua đó, biện pháp này nhằm nhấn mạnh vẻ đẹp bình dị, gần gũi, ngọt ngào của quê hương gắn liền với ký ức tuổi thơ êm đềm. Đồng thời, thể hiện tình cảm yêu mến, trân trọng và gắn bó sâu sắc của tác giả dành cho quê hương đất nước.`,
+                expectedDevice: ["so sánh"],
+                expectedQuote: ["quê hương là chùm khế ngọt", "chùm khế ngọt"]
+            },
+            2: {
+                title: "ĐỀ FAKE SỐ 02 (Dạng Truyện ngắn - Tự sự)",
+                excerpt: `"Tôi đứng lặng nhìn theo bóng mẹ khuất dần dưới cơn mưa chiều. Đôi vai gầy của mẹ run lên từng đợt, chiếc áo tơi cũ kỹ như đang gồng mình che chở cả bầu trời giông bão cho chị em chúng tôi..."`,
+                author: "(Trích ngữ liệu Đọc hiểu giả định)",
+                q1: "Câu 1 (0.5đ): Xác định ngôi kể và phương thức biểu đạt chính của đoạn trích.",
+                a1: "Ngôi kể: Ngôi thứ nhất (xưng 'Tôi') • PTBĐ chính: Tự sự.",
+                q2: "Câu 3 (1.0đ): Phân tích tác dụng của biện pháp tu từ NHÂN HÓA trong hình ảnh 'chiếc áo tơi cũ kỹ như đang gồng mình che chở'.",
+                sampleAnswer: `Tác giả đã sử dụng rất thành công biện pháp tu từ nhân hóa được thể hiện qua hình ảnh "chiếc áo tơi cũ kỹ như đang gồng mình che chở". Biện pháp này giúp câu văn trở nên sinh động, hấp dẫn, giàu hình ảnh và giàu sức gợi hình, gợi cảm. Qua đó, nhằm nhấn mạnh sự vất vả, tần tảo và đức hy sinh thầm lặng của người mẹ nghèo để bảo vệ các con. Đồng thời, thể hiện tình cảm xót xa, biết ơn và kính yêu sâu sắc của tác giả dành cho người mẹ.`,
+                expectedDevice: ["nhân hóa", "so sánh"],
+                expectedQuote: ["gồng mình che chở", "chiếc áo tơi"]
+            }
+        };
+
+        let currentExamId = 1;
+
+        function switchFakeExam(id) {
+            currentExamId = id;
+            const ex = fakeExams[id];
+            document.getElementById('examBtn1').className = id === 1
+                ? "px-2.5 py-1 rounded-lg bg-emerald-400 text-slate-950 font-extrabold text-xs"
+                : "px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-bold text-xs hover:bg-slate-700";
+            document.getElementById('examBtn2').className = id === 2
+                ? "px-2.5 py-1 rounded-lg bg-emerald-400 text-slate-950 font-extrabold text-xs"
+                : "px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-bold text-xs hover:bg-slate-700";
+
+            document.getElementById('fakeExamBox').innerHTML = `
+                <div class="font-extrabold text-emerald-400 text-xs uppercase">${ex.title}</div>
+                <blockquote class="p-3 rounded-lg bg-slate-900 border-l-4 border-amber-400 italic text-slate-100 whitespace-pre-line leading-relaxed">${ex.excerpt}</blockquote>
+                <div class="text-right text-xs text-slate-400">${ex.author}</div>
+                <div class="pt-2 border-t border-slate-800 space-y-1.5 text-xs sm:text-sm">
+                    <p class="text-slate-200"><strong class="text-amber-300">${ex.q1}</strong></p>
+                    <details class="bg-slate-900/90 rounded-lg p-2 border border-slate-800 cursor-pointer">
+                        <summary class="text-xs font-bold text-emerald-400">👉 Bấm xem nhanh đáp án Câu 1</summary>
+                        <p class="text-xs text-white mt-1 font-semibold">${ex.a1}</p>
+                    </details>
+                    <p class="text-slate-100 pt-1"><strong class="text-rose-400">${ex.q2}</strong></p>
+                </div>
+            `;
+            document.getElementById('examUserAnswer').value = '';
+            gradeExamAnswerRealtime();
+        }
+
+        function fillSampleExamAnswer() {
+            document.getElementById('examUserAnswer').value = fakeExams[currentExamId].sampleAnswer;
+            gradeExamAnswerRealtime();
+            showToast("Đã điền mẫu câu trả lời 1.0 điểm!");
+        }
+
+        function gradeExamAnswerRealtime() {
+            const val = document.getElementById('examUserAnswer').value.trim();
+            const lower = val.toLowerCase();
+            const ex = fakeExams[currentExamId];
+
+            // Kiểm tra 4 bước
+            const hasStep1Device = ex.expectedDevice.some(d => lower.includes(d));
+            const hasQuotes = /["“”']/.test(val) && ex.expectedQuote.some(q => lower.includes(q));
+            const hasStep1 = hasStep1Device && hasQuotes;
+
+            const artKeywords = ["sinh động", "hấp dẫn", "gợi hình", "gợi cảm", "nhịp điệu", "ấn tượng", "xoáy sâu", "giàu hình ảnh"];
+            const hasStep2 = artKeywords.some(k => lower.includes(k));
+
+            const contentKeywords = ["nhấn mạnh", "làm nổi bật", "khẳng định", "thể hiện vẻ đẹp", "qua đó", "vất vả", "bình dị", "ngọt ngào", "hy sinh"];
+            const hasStep3 = contentKeywords.some(k => lower.includes(k));
+
+            const emotionKeywords = ["tình cảm", "yêu mến", "trân trọng", "biết ơn", "tự hào", "xót xa", "gắn bó", "kính yêu", "thái độ"];
+            const hasStep4 = emotionKeywords.some(k => lower.includes(k));
+
+            let score = 0;
+            if (hasStep1) score += 0.25;
+            else if (hasStep1Device) score += 0.1; // Có tên BPTT nhưng quên trích dẫn ngoặc kép
+
+            if (hasStep2) score += 0.25;
+            if (hasStep3) score += 0.25;
+            if (hasStep4) score += 0.25;
+
+            const checklistHtml = `
+                <div class="p-2 rounded-lg border ${hasStep1 ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300' : 'bg-slate-900 border-slate-800 text-slate-400'}">
+                    ${hasStep1 ? '✅' : (hasStep1Device ? '⚠️' : '⬜')} <strong>B1:</strong> Tên BPTT + Ngoặc kép ""
+                </div>
+                <div class="p-2 rounded-lg border ${hasStep2 ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300' : 'bg-slate-900 border-slate-800 text-slate-400'}">
+                    ${hasStep2 ? '✅' : '⬜'} <strong>B2:</strong> Tác dụng Nghệ thuật
+                </div>
+                <div class="p-2 rounded-lg border ${hasStep3 ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300' : 'bg-slate-900 border-slate-800 text-slate-400'}">
+                    ${hasStep3 ? '✅' : '⬜'} <strong>B3:</strong> Nhấn mạnh Nội dung
+                </div>
+                <div class="p-2 rounded-lg border ${hasStep4 ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300' : 'bg-slate-900 border-slate-800 text-slate-400'}">
+                    ${hasStep4 ? '✅' : '⬜'} <strong>B4:</strong> Tình cảm tác giả
+                </div>
+            `;
+
+            document.getElementById('liveChecklist').innerHTML = checklistHtml;
+            document.getElementById('liveGradeScore').innerText = `${score.toFixed(2)} / 1.00 điểm`;
+
+            const commentEl = document.getElementById('liveGradeComment');
+            if (!val) {
+                commentEl.innerHTML = "Gõ thử đi mày, tao soi từng chữ xem mày có quên dấu ngoặc kép không!";
+            } else if (hasStep1Device && !hasQuotes) {
+                commentEl.innerHTML = "🚨 <strong class='text-rose-400'>CẢNH BÁO ĐỎ:</strong> Mày đã gọi tên biện pháp nhưng QUÊN mở ngoặc kép chép lại câu thơ kìa! Mất oan 0.25 điểm bây giờ!";
+            } else if (score === 1) {
+                commentEl.innerHTML = "🔥 <strong class='text-emerald-400'>ĐỈNH CỦA CHÓP!</strong> Đủ cả 4 bước + có trích dẫn trong ngoặc kép chuẩn chỉnh. Giám khảo nhìn bài này chỉ có cho điểm tối đa!";
+            } else {
+                commentEl.innerHTML = "👉 Nhìn các ô còn màu xám ở trên để viết thêm cho đủ 4 bước nha mày!";
+            }
+        }
+
+        // -------------------------------------------------------------------------
+        // 7. TIỆN ÍCH CHUYỂN TAB, FLIP CARD & MODAL
+        // -------------------------------------------------------------------------
+        function switchTab(tabId) {
+            const sections = {
+                part1: document.getElementById('sec-part1'),
+                part2: document.getElementById('sec-part2'),
+                part3: document.getElementById('sec-part3'),
+                part4: document.getElementById('sec-part4')
+            };
+
+            Object.keys(sections).forEach(key => {
+                if (tabId === 'all' || tabId === key) {
+                    sections[key].classList.remove('hidden');
+                } else {
+                    sections[key].classList.add('hidden');
+                }
+            });
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                if (btn.id === `tab-${tabId}`) {
+                    btn.className = "nav-btn shrink-0 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-amber-400 text-slate-950 shadow-md shadow-amber-400/20";
+                } else {
+                    btn.className = "nav-btn shrink-0 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-slate-800/80 text-slate-300 hover:bg-slate-700";
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function flipAllPart1Cards() {
+            document.querySelectorAll('#sec-part1 .flip-card').forEach(card => {
+                card.classList.toggle('flipped');
+            });
+        }
+
+        function openCheatModal() {
+            document.getElementById('cheatModal').classList.remove('hidden');
+        }
+
+        function closeCheatModal() {
+            document.getElementById('cheatModal').classList.add('hidden');
+        }
+
+        function showToast(msg) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = "px-4 py-2.5 rounded-xl bg-amber-400 text-slate-950 font-extrabold text-xs sm:text-sm shadow-xl transition transform translate-y-0";
+            toast.innerText = msg;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.remove();
+            }, 2600);
+        }
+
+        // Khởi chạy ngay lập tức khi trang tải xong
+        window.onload = function () {
+            loadPoemSample('lucbat');
+            renderRhetoricCards();
+            loadBuilderSample(1);
+            renderQuiz();
+            switchFakeExam(1);
+        };
+    </script>
 </body>
 </html>
